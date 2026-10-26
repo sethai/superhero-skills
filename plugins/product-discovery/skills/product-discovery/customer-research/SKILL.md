@@ -81,7 +81,7 @@ Lead with concrete findings. No generic introduction about research, repeated ex
 
 If no eligible opinions are found, still produce all three files: a short report describing coverage and the evidence gap, a header-only CSV, and an HTML page with the same summary and an explicit empty quote section. Do not replace missing evidence with generic advice.
 
-### `cytaty.csv`
+### `quotes.csv`
 
 Write UTF-8 CSV using a CSV writer so commas, quotation marks, and line breaks remain valid. Aim for about 100 substantive passages covering the eligible opinions, with one representative quote per opinion by default. Include every opinion used in the report's mention counts, not just a small selection of striking quotes. Keep quotations independently understandable, remove duplicates, and sort by theme, then experience ID.
 
@@ -113,7 +113,7 @@ For reproducible counts, use [scripts/count_mentions.py](scripts/count_mentions.
 Create a standalone, UTF-8 HTML page that opens locally, with embedded styles and no required external assets, services, or network requests. Keep the layout readable on desktop and mobile. Read `references/html-style.md` and inline `assets/html-style.css` as the default visual style unless the user requests another. Preserve the report/quote-bank structure and exactly three deliverables.
 
 - Start with a brief summary of `raport.md`: the main findings, problem mention counts with their denominators, sample size, search date, and material limitations or target shortfall. Do not add new conclusions or expand it into a longer report. The 700-word limit applies to `raport.md`; the HTML quote bank is additional evidence.
-- Follow with all quotes from `cytaty.csv`, grouped by its consistent theme tags. Use clearly titled, collapsible sections so a large quote bank is easy to browse. Show each theme's distinct-experience count and the relevant denominator, using the same scope and evidence exclusions as the report.
+- Follow with all quotes from `quotes.csv`, grouped by its consistent theme tags. Use clearly titled, collapsible sections so a large quote bank is easy to browse. Show each theme's distinct-experience count and the relevant denominator, using the same scope and evidence exclusions as the report.
 - A quote with several tags may appear in several groups; preserve its original quote and experience IDs. Explain that groups overlap and repeated appearances are not additional opinions. Give each rendered occurrence a unique HTML anchor.
 - Each quote shows its quote ID, exact original text, separate translation when present, author, date or unknown date, context, evidence type, and a direct source link. Keep vendor-selected statements, expectations, and source-access limitations visibly labeled.
 - Generate the summary from the final Markdown report and the grouped evidence from the final CSV. Do not maintain a separately rewritten quote list. Escape source text as HTML and use valid source URLs as links.

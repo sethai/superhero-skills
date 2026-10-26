@@ -54,6 +54,8 @@ Miro and FigJam are optional integrations. Local discovery does not require an e
 
 ### Product Discovery
 
+These skills help you understand customers, examine product and market evidence, choose a problem worth solving, and decide what to test next. Use a skill on its own for a focused task, or use Supersprint to connect the work into a discovery cycle with saved decisions and a growing evidence tree.
+
 | Skill | What it does |
 |---|---|
 | `supersprint` | Guides a discovery cycle with the included specialists, saved decisions and a growing HTML/Mermaid tree. |
@@ -66,45 +68,23 @@ Miro and FigJam are optional integrations. Local discovery does not require an e
 
 #### Supersprint: from signals to a decision
 
-`supersprint` connects the discovery skills into one process. Start with a product and a problem or decision to investigate. A brief, an existing outcome, CSV files, interview transcripts and previous research are useful inputs, but you do not need a complete research folder to begin. If the outcome is missing, the skill helps establish a working goal and keeps unknowns visible.
+`supersprint` guides the process using the discovery skills above. Start with a product and a problem or decision to investigate. Briefs, CSV files, transcripts and previous research are optional inputs. If the outcome is missing, the skill helps establish a working goal.
 
 ```text
-Goal -> Signals -> Opportunities -> Ideas -> Experiments -> Observed results -> Decision
+Goal -> Signals -> Opportunities -> Ideas -> Experiments -> Observed results -> Decisions
 ```
 
-Supersprint brings together the research, analysis and experiment-design skills listed under Product Discovery above, using the relevant one when needed. You can also use these skills independently. Run the whole process, resume a saved cycle, or review the current stage.
+The tree grows as you work, with an HTML view, a Mermaid export, highlighted selections and links to evidence. Each cycle saves its documents, decisions and state under `supersprint/<cycle>/` in your project, so you can resume later. No personal knowledge vault or external board is required.
 
-Try a request such as:
+You choose the focus and next experiment unless you delegate those choices. Tests state a hypothesis, practical method and expected observable change; you judge what counts as success. Plans and actual results stay separate.
 
-> Start a Supersprint for this product. We want to understand why customers do not return. Use the attached brief, CSV files and transcripts, and save the work in this project.
-
-The discovery tree grows as the work progresses. After meaningful additions and stage changes, the skill refreshes a standalone HTML view and a Mermaid export. Selected paths are highlighted; clicking a node shows a short explanation and links to its full sources. Hypotheses sit inside experiments rather than forming a separate layer.
-
-Each cycle keeps its stage documents, evidence references, decisions and `state.json` under `supersprint/<cycle>/` in your project. Significant tree revisions receive snapshots, so later conversations can resume from saved work. The bundled renderer and visual styles require no personal Second Brain, Super Brain installation or external board. Miro and FigJam are optional integrations.
-
-You choose the opportunity, ideas and next experiment, unless you explicitly delegate those choices. Experiments explain the hypothesis, practical method and observable change; success criteria are directional unless you provide or request numerical thresholds. Plans remain separate from actual results, and missing observations remain missing. The next decision may be to develop, revise, discard or research further.
-
-The skill opens HTML in the host's built-in browser when permitted. If automatic preview is unavailable or blocked, it still saves the HTML and Mermaid and provides file links. Updates run during the conversation, not as a background service.
-
-#### Experiment design
-
-`experiment-design` compares tests for the uncertainty that matters next. Methods include prototypes (paper or clickable screens, video, Wizard of Oz, concierge), demand tests (smoke tests, fake doors, landing and pricing pages), and commitment tests (presales, deposits, letters of intent or paid pilots). Categories can overlap.
-
-Each recommendation explains the hypothesis, what changes in practice, the observable change, the decision results can inform, and why to test it now. Recommendations are saved as Markdown and a standalone HTML portfolio. Expected change is directional by default; numerical success criteria are supplied or requested by you. A click does not establish use or payment, and a plan does not count as an executed experiment.
-
-#### Customer research
-
-`customer-research` aims to collect about 100 verified, deduplicated public customer opinions. It produces `raport.md` (up to 700 words), `cytaty.csv` with sources and context, and a standalone `raport.html` with a summary and quotes grouped by theme. Each reported problem includes a mention count with its denominator. When accessible evidence falls short, the report states the actual sample size and gaps.
+> Start a Supersprint for this product. Investigate why customers do not return, using the attached brief, CSV files and transcripts.
 
 ### Product Design
 
 | Skill | What it does |
 |---|---|
 | `super-landing-page` | Builds a distinctive landing page through a guided interview, independent art direction, a detailed execution prompt, and visual iteration. |
-
-#### Super Landing Page workflow
-
-`super-landing-page` asks one question at a time in chat, with the complete set of options and a recommendation. It turns the answers into a brief, project-specific art direction, and a self-contained execution prompt, then builds and checks a responsive page. Composition, motion, palette, and supporting details follow the chosen concept. Conversation and artifacts use your language. You can also request only the prompt and specification.
 
 The source folders are `plugins/product-discovery/skills/product-discovery/` and `plugins/product-discovery/skills/product-design/`. Both are explicitly declared in the plugin manifests.
 
@@ -167,7 +147,7 @@ codex plugin marketplace add superhero-tech/superhero-skills
 codex plugin add product-discovery@superhero-skills
 ```
 
-Start a new Codex session after installation. Version `1.4.0` includes Supersprint and experiment design; if they are absent, check that your installed plugin has updated to this version or later. You can also open `/plugins` to browse the `Superhero Skills` marketplace.
+Start a new Codex session after installation. Version `1.4.1` includes Supersprint and experiment design; if they are absent, check that your installed plugin has updated to this version or later. You can also open `/plugins` to browse the `Superhero Skills` marketplace.
 
 Invoke a skill explicitly, for example:
 
