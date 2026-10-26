@@ -147,7 +147,7 @@ codex plugin marketplace add superhero-tech/superhero-skills
 codex plugin add product-discovery@superhero-skills
 ```
 
-Start a new Codex session after installation. Version `1.4.1` includes Supersprint and experiment design; if they are absent, check that your installed plugin has updated to this version or later. You can also open `/plugins` to browse the `Superhero Skills` marketplace.
+Start a new Codex session after installation. Version `1.4.2` includes Supersprint and experiment design; if they are absent, check that your installed plugin has updated to this version or later. You can also open `/plugins` to browse the `Superhero Skills` marketplace.
 
 Invoke a skill explicitly, for example:
 

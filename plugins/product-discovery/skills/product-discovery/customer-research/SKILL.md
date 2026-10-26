@@ -68,7 +68,7 @@ State the denominator explicitly: all eligible opinions in scope, or a named sub
 
 Use the user's chosen location. Otherwise create a visible `customer-research/<topic>/` folder in the current project. For a new run that would overwrite existing results, use a dated or numbered folder. Keep scratch work outside the deliverable folder and do not expose it as extra output.
 
-### `raport.md`
+### `report.md`
 
 Aim for a readable 1-2 page report, with a hard limit of 700 words including tables, headings, and source notes. Markdown pagination varies; the word limit controls length. Do not pad thin evidence to fill pages.
 
@@ -108,11 +108,11 @@ Use these columns, localizing their labels into the user's language:
 
 For reproducible counts, use [scripts/count_mentions.py](scripts/count_mentions.py) when Python is available. Pass `--id-column` and `--theme-column` with the actual localized headers. Use `--evidence-column` plus `--exclude-evidence` to exclude editorial tests, and `--scope-column` plus repeated `--scope` values to restrict a denominator. It emits counts and supporting experience IDs to stdout, not a separate deliverable. Otherwise compute the same sets with the host's table capabilities.
 
-### `raport.html`
+### `report.html`
 
 Create a standalone, UTF-8 HTML page that opens locally, with embedded styles and no required external assets, services, or network requests. Keep the layout readable on desktop and mobile. Read `references/html-style.md` and inline `assets/html-style.css` as the default visual style unless the user requests another. Preserve the report/quote-bank structure and exactly three deliverables.
 
-- Start with a brief summary of `raport.md`: the main findings, problem mention counts with their denominators, sample size, search date, and material limitations or target shortfall. Do not add new conclusions or expand it into a longer report. The 700-word limit applies to `raport.md`; the HTML quote bank is additional evidence.
+- Start with a brief summary of `report.md`: the main findings, problem mention counts with their denominators, sample size, search date, and material limitations or target shortfall. Do not add new conclusions or expand it into a longer report. The 700-word limit applies to `report.md`; the HTML quote bank is additional evidence.
 - Follow with all quotes from `quotes.csv`, grouped by its consistent theme tags. Use clearly titled, collapsible sections so a large quote bank is easy to browse. Show each theme's distinct-experience count and the relevant denominator, using the same scope and evidence exclusions as the report.
 - A quote with several tags may appear in several groups; preserve its original quote and experience IDs. Explain that groups overlap and repeated appearances are not additional opinions. Give each rendered occurrence a unique HTML anchor.
 - Each quote shows its quote ID, exact original text, separate translation when present, author, date or unknown date, context, evidence type, and a direct source link. Keep vendor-selected statements, expectations, and source-access limitations visibly labeled.
