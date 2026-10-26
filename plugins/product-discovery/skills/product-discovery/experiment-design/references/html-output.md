@@ -15,6 +15,8 @@ Read `references/html-style.md` for the default visual contract. The bundled ren
 
 ## Tree cards and embedded previews
 
+Apply `references/writing-quality.md` to titles and short previews. Keep the concrete person, information or offer, action, and observed behavior when shortening. A preview may use several short sentences; do not turn a clear source explanation into abstract shorthand or rely on a full-source link to explain the proposal.
+
 A tree is another view of the same experiments. Reuse the current recommendation content instead of rebuilding a thinner description from state IDs. Connect the idea directly to the experiment, with no assumption layer or duplicate assumption lists on ideas. On the node show a concise hypothesis, named method with the practical action, and expected measurable behavior. Keep the click preview brief: only the hypothesis, practical method and measurable direction with its essential comparison or denominator, plus a prominent link to the full source plan. Leave protocols, source-ID lists, extended rationale and decision scenarios in that source. The full recommendations retain all five blocks; the preview must not reproduce the full document. Preserve limits and human judgment without inventing thresholds.
 
 Apply the same reading depth across tree layers: each outcome, opportunity and idea node gets a short meaningful summary, then a few sentences of context in its click preview and a link to the full description/evidence. Keep related-node navigation compact.

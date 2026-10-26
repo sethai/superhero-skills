@@ -11,6 +11,14 @@ Answer the user's research question with traceable evidence, explain when the an
 
 Respond and produce all artifacts in the user's conversation language.
 
+## Natural titles and explanations
+
+Write titles, labels, summaries, and explanations in natural, descriptive language from the start. A reader should understand who does or needs what, with which concrete information or product change, without opening another file. Prefer a clear sentence to compressed research shorthand; do not impose a fixed title formula.
+
+Use descriptive report and finding titles that state the question or supported answer in ordinary language. In each short explanation, identify the people, task, change, and observed outcome. Preserve uncertainty and distinctions between interventions rather than replacing them with broad labels.
+
+Before saving the canonical artifact and again after shortening it for HTML or a handoff, read the title and description on their own. Can a reader picture what happens and say what we learned or want to learn? If not, clarify them here before projecting them into another view. This is part of this skill's own output quality, not a dependency on a separate editing skill. Do not invent details or alter facts, scope, or review status to make the wording concrete.
+
 Use live web search and read original sources. If search is unavailable, say so and stop rather than presenting remembered claims as fresh research. Never modify `ost-state.json`.
 
 ## 1. Establish the brief

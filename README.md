@@ -74,7 +74,13 @@ These skills help you understand customers, examine product and market evidence,
 Goal -> Signals -> Opportunities -> Ideas -> Experiments -> Observed results -> Decisions
 ```
 
-The tree grows as you work, with an HTML view, a Mermaid export, highlighted selections and links to evidence. Each cycle saves its documents, decisions and state under `supersprint/<cycle>/` in your project, so you can resume later. No personal knowledge vault or external board is required.
+The tree grows as you work, with an HTML view, a Mermaid export, highlighted selections and links to evidence.
+
+Each branch is centered on its own parent, with room between cards and zoom controls from 20% to 150%, reset and fit-entire-tree. Clicking a card highlights its connections; dotted lines from supporting signals appear only when you inspect the card they support.
+
+Titles and previews explain the actual person, situation and proposed change in natural language across Supersprint and its specialists.
+
+Each cycle saves its documents, decisions and state under `supersprint/<cycle>/` in your project, so you can resume later. No personal knowledge vault or external board is required.
 
 You choose the focus and next experiment unless you delegate those choices. Tests state a hypothesis, practical method and expected observable change; you judge what counts as success. Plans and actual results stay separate.
 
@@ -147,7 +153,7 @@ codex plugin marketplace add superhero-tech/superhero-skills
 codex plugin add product-discovery@superhero-skills
 ```
 
-Start a new Codex session after installation. Version `1.4.2` includes Supersprint and experiment design; if they are absent, check that your installed plugin has updated to this version or later. You can also open `/plugins` to browse the `Superhero Skills` marketplace.
+Start a new Codex session after installation. Version `1.5.0` adds clearer discovery descriptions and an interactive Supersprint tree; check that your installed plugin has updated to this version or later to use these improvements. You can also open `/plugins` to browse the `Superhero Skills` marketplace.
 
 Invoke a skill explicitly, for example:
 

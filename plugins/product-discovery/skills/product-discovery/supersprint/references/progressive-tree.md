@@ -35,6 +35,28 @@ Edges have `source`, `target` node IDs and a relation `type`; evidence/reference
 
 Populate all labels, summaries, previews and statuses in the user's language. Optional `tree_ui` in state or graph overrides renderer interface labels for languages beyond the bundled English/Polish defaults. Provide full translations when using another language.
 
+## Titles and previews that make sense on their own
+
+Write natural, descriptive language in every layer, including experiment names. A reader should be able to picture the person, the specific information or product change, and the action without opening another node or knowing research terminology. For a test, also make clear what we will observe. A slightly longer title or several short preview sentences are preferable to compressed jargon; do not enforce a fixed naming formula.
+
+Avoid bare abstractions such as "interpret evidence", "improve assessment", or "test the mechanism" when they hide what the person sees or does. Replace them with the actual project situation. Explain what "the material", "the explanation", or "the card" contains inside the same preview, including who prepares it when relevant. Name the real task the test examines; do not rename understanding information as verifying skills or rename intent as payment.
+
+Before displaying the tree, read each changed title and preview without its neighbors or full-source document. Could the reader explain who receives what, what they do next, and what we will learn? Does it sound natural when spoken in the user's language? If not, clarify the canonical stage or specialist artifact first, then update state and the view without changing its meaning. Keep evidence, IDs, selection status, comparison, and measurement scope intact. Do not invent missing details or make the source link carry the basic explanation.
+
+## Default layout and navigation
+
+Use these accepted defaults when generating or refreshing the HTML tree, unless the user explicitly requests a different view:
+
+- **Center each branch on its own parent.** Allocate space recursively to each subtree using actual card heights. Center the parent between its first and last direct child's center. Do not center whole columns as one stack. Separate independent subtrees so cards cannot overlap. A shared node is drawn once; its first incoming forward structural edge defines its layout parent, while all graph relationships remain intact.
+- **Spacing at 100%:** cards are 280 px wide, stage columns are 80 px apart, and sibling subtree blocks have at least 36 px between them. Put the supporting-signal section 96 px below the main axis, with 36 px gaps between signal cards. Keep the SF neutral typography, card frames, and recommendation styling.
+- **Zoom:** include minus/plus buttons, a 20-150% slider, reset to 100%, and fit-entire-tree. Start at 100%. Zoom the canvas and its connectors together; keep the detail panel at normal readable size. Preserve the viewed area when changing scale, and recompute canvas bounds and connector coordinates. The zoom controls must use the artifact's language, with English/Polish defaults and `tree_ui` overrides supported.
+- **Inspect connections:** clicking a card highlights its directly incoming and outgoing visible lines in blue (`#2563EB`) and brings them above other lines. Keep this inspection while zooming. Closing the detail panel or pressing Escape clears it. Permanent selections and recommendations remain independent and retain their frames and styling.
+- **Reveal supporting lines only for their recipient.** Lines originating at signal cards are hidden by default. Inspecting a card reveals only the signal lines whose target is that card, still dotted and highlighted. Inspecting a signal by itself does not reveal its outgoing lines. Closing the panel or choosing another card hides the previous recipient's supporting lines. These relationships stay in state and exports; visibility is only a presentation choice.
+
+Apply layout and connection updates after cards or fonts change size. Keep the HTML offline and self-contained, with keyboard-operable native controls. Cosmetic view updates do not change node IDs, graph edges, review status, selections, or evidence. Do not create a new discovery decision merely because a card is inspected, zoomed, or repositioned.
+
+When localizing through `tree_ui`, also supply `zoom_controls`, `zoom_out`, `zoom_in`, `zoom_scale`, `zoom_reset`, and `zoom_fit` for languages without bundled labels.
+
 ## Export and show
 
 After saving a material change, increment `state.tree.revision`, set its current paths and use:

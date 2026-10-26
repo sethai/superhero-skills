@@ -11,6 +11,14 @@ Build a customer interview plan gate by gate from evidence the team already has:
 
 Respond and produce all artifacts in the user's conversation language. Mirror the vocabulary from the user's project files.
 
+## Natural titles and explanations
+
+Write titles, labels, summaries, and explanations in natural, descriptive language from the start. A reader should understand who does or needs what, with which concrete information or product change, without opening another file. Prefer a clear sentence to compressed research shorthand; do not impose a fixed title formula.
+
+Name the behavior and situation each research question investigates. Write guide topics and participant questions so an interviewer and participant can understand them without research terminology. Do not simplify away the distinction between team research questions and questions read to participants.
+
+Before saving the canonical artifact and again after shortening it for HTML or a handoff, read the title and description on their own. Can a reader picture what happens and say what we learned or want to learn? If not, clarify them here before projecting them into another view. This is part of this skill's own output quality, not a dependency on a separate editing skill. Do not invent details or alter facts, scope, or review status to make the wording concrete.
+
 This skill **plans** interviews. It does not run them, does not invent participants or answers, and does not synthesize results - that is `affinity-mapping`.
 
 ## Where this sits

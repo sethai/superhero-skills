@@ -11,7 +11,7 @@ Turn raw user interviews into **structured themes and opportunities** (needs/pai
 
 Respond and produce all artifacts in the user's conversation language.
 
-Before extraction, read `references/writing-quality.md`. Apply it to all agent-authored observations, labels, opportunities, and summaries; preserve source quotes verbatim.
+Before extraction, read `references/writing-quality.md`. Apply it to all agent-authored observations, labels, opportunities, and summaries; preserve source quotes verbatim. Titles and previews must describe the actual person, situation, and need on their own. Check clarity again after shortening, before saving JSON, HTML, or a handoff; this skill owns that quality without depending on a separate editor.
 
 ## Core rule: TWO-STEP synthesis (and why it matters)
 

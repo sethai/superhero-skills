@@ -15,6 +15,10 @@ Use the vocabulary, grammar, and sentence structure natural to the intended read
 
 For example, "Experiences temporal ambiguity around renewed engagement" is obscure; "After two weeks, the recruiter does not know whether the candidate is still interested" states the same situation concretely. This is an illustrative example, not evidence to reuse in a project.
 
+## Titles and short previews
+
+Read the title and preview without neighboring cards or linked documents. The reader should be able to picture who needs or does what, using the concrete situation from the quotes. Prefer a natural descriptive sentence to a compressed research label; do not impose a fixed title formula. Preserve those details when shortening for HTML or a handoff. The linked source provides evidence and detail, not the missing basic explanation. This is part of this skill's own quality review, independent of any separate editing skill.
+
 ## Review language and fidelity together
 
 Before presenting the Markdown synthesis, read each observation and label as a standalone note:

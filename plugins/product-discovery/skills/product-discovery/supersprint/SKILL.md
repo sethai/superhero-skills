@@ -11,6 +11,8 @@ Lead the cycle: goal -> signals -> opportunities -> ideas -> experiments -> obse
 
 Respond and produce all artifacts in the user's conversation language.
 
+Use natural, descriptive names throughout the tree. Titles and previews should say who does what, with which specific information or product change, and what we want to learn. Preserve these details when shortening specialist findings; prefer a few clear sentences to opaque shorthand. Apply the standalone readability check in `references/progressive-tree.md` before showing each update.
+
 ## Intake and resume
 
 Read `references/intake-and-routing.md` first. Minimum input is product context and a problem, direction or decision to investigate; a short conversation brief is sufficient. An existing outcome, metrics, transcripts and completed research are optional inputs, not an admission checklist.
@@ -35,7 +37,7 @@ Ask one consequential question at a time when a choice is needed. Previously aut
 
 ## Specialist routing
 
-The plugin includes all six specialists listed below. Discover them by skill name in the host, including its plugin namespace when required, and read the relevant specialist before using it. Resolve bundled resources relative to each skill directory; no personal vault or development-repository path is required. Pass the agreed question, decision, segment, selected input paths, constraints, destination and return condition. Use only the route that addresses an actual gap:
+The plugin includes all six specialists listed below. Discover them by skill name in the host, including its plugin namespace when required, and read the relevant specialist before using it. Resolve bundled resources relative to each skill directory; no personal vault or development-repository path is required. Pass the agreed question, decision, segment, selected input paths, constraints, destination and return condition. Include the requirement for natural, descriptive titles and self-contained explanations in each specialist handoff. Specialists clarify their canonical artifacts before the router shortens them; the router checks that the concrete meaning survives. This language quality belongs to Supersprint and its specialists and must not depend on a separate editing skill. Use only the route that addresses an actual gap:
 
 | Gap | Specialist |
 |---|---|
@@ -66,7 +68,7 @@ The renderer accepts both a new state's `nodes`/`edges` and an existing `tree.pr
 
 Main axis: goal -> opportunities -> ideas -> experiments -> real results -> decision. Put signals in a supporting area below the axis with evidence links, not before the goal as a process step. Selected paths stay clearly framed; recommendations and temporary inspection have different treatments. Each layer gets a short node summary, a few sentences in the click preview and a prominent full-source link. Experiment previews retain hypothesis, practical method and measurement, not the full protocol.
 
-Use the accepted SF neutral style: `references/html-style.md` and the packaged `assets/html-style.css`. Different artifacts may use different layouts while keeping this visual family. The renderer is offline and self-contained.
+Use the accepted branch-centered layout, spacing, zoom, and inspection behavior in `references/progressive-tree.md`; the bundled renderer implements these defaults. Use the accepted SF neutral style: `references/html-style.md` and the packaged `assets/html-style.css`. Different artifacts may use different layouts while keeping this visual family. The renderer is offline and self-contained.
 
 If browser policy blocks access, save the artifacts, provide the file link and a concise change summary or inline Mermaid fallback. State that automatic preview was not confirmed; do not bypass the block through another browser, protocol or local server. Text-only user preferences take precedence.
 

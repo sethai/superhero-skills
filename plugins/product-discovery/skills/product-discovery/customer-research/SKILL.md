@@ -11,6 +11,14 @@ Find what people with relevant experience say online about a product, category, 
 
 Respond and produce all artifacts in the user's conversation language.
 
+## Natural titles and explanations
+
+Write titles, labels, summaries, and explanations in natural, descriptive language from the start. A reader should understand who does or needs what, with which concrete information or product change, without opening another file. Prefer a clear sentence to compressed research shorthand; do not impose a fixed title formula.
+
+Name each finding and theme after the reported behavior, difficulty, or benefit. Explain who experienced it and in what situation. Preserve quotations, distinct-experience counts, attribution, and the difference between reported experience and your interpretation.
+
+Before saving the canonical artifact and again after shortening it for HTML or a handoff, read the title and description on their own. Can a reader picture what happens and say what we learned or want to learn? If not, clarify them here before projecting them into another view. This is part of this skill's own output quality, not a dependency on a separate editing skill. Do not invent details or alter facts, scope, or review status to make the wording concrete.
+
 Scope: online opinions and accounts of real use. Do not plan interviews or surveys, generate personas, or write a marketing strategy. Recommendations are an additional task only when requested.
 
 ## 1. Establish the search scope

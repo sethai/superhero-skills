@@ -10,7 +10,7 @@ metadata:
 Turn research or selected concepts into a runnable experiment plan. Choose the method by the assumption and the decision it can inform.
 
 Respond and produce all artifacts in the user's conversation language.
-Use idiomatic language: name the person, action and object; explain specialist labels once. Keep participant-facing copy separate from research terminology.
+Use natural, descriptive language for titles as well as explanations. Before naming or summarizing tests, read `references/writing-quality.md`. Keep participant-facing copy separate from research terminology.
 
 ## Explain the experiment first
 
@@ -84,7 +84,7 @@ Keep decision-critical fields in the card; put longer stimuli, scripts and recor
 ## Round 4: Persist and review
 
 1. Save the bet pack and useful materials. Update existing project state/history within scope; preserve accepted selections and pending human reviews. Record family/subtype, assumption links, revision, execution status, threshold status and results separately. A recommendation is not user approval.
-2. Re-read only outputs produced or changed in this run. Each recommendation needs an assumption, subtype, concrete stimulus/task, expected directional behavior, comparison/denominator/context, conditional next actions, priority rationale and limitations. Check source links and scope consistency.
+2. Re-read only outputs produced or changed in this run. Each recommendation needs an assumption, subtype, concrete stimulus/task, expected directional behavior, comparison/denominator/context, conditional next actions, priority rationale and limitations. Check source links and scope consistency. Apply the standalone readability check in `references/writing-quality.md` to every title and short preview; revise the canonical explanation before updating its views.
 3. Check boundaries: clicks are not use or payment; a saved card is not a charge; payment is not satisfaction or retention; manual performance is not automated feasibility. Repeated observations are not independent people or organizations.
 4. Verify numerical success criteria have explicit user provenance or a request to propose them, human judgment remains distinct from the recommendation, and outcomes remain empty until observations exist. Do not invent results, participants, prices, launch dates or statistical certainty.
 5. Create `mini-spec.md` only after supplied results reduce the relevant assumption enough for the next implementation decision. Mixed or inconclusive evidence calls for another learning step.

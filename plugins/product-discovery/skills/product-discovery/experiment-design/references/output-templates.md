@@ -28,7 +28,7 @@ Name the ideas and distinct assumptions covered. Repeat the five-block explanati
 
 ### Experiment: reader-facing summary first
 
-These five blocks are the primary explanation, in this order. Translate headings naturally. Start with the user's situation and a concrete change in the product; explain any new feature before giving it a shorthand name. Put source IDs and research operations afterward.
+These five blocks are the primary explanation, in this order. Translate headings naturally. Start with the user's situation and a concrete change in the product; explain any new feature before giving it a shorthand name. Put source IDs and research operations afterward. Follow `references/writing-quality.md` for the title and body. Describe the actual person, information or offer, and action; method labels and abstract nouns cannot stand in for that description.
 
 ```markdown
 ## [Plain-language experiment name]

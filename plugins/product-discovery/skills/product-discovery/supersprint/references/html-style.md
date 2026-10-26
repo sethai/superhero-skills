@@ -7,7 +7,7 @@ Use this style for every HTML artifact from this skill, both standalone and with
 - Text hierarchy: #292929 primary, #5D5D5D secondary, #9E9E9E metadata. White/light neutral surfaces and subtle gray borders; solid CTA text may be white. Keep critical instructions and controls in the darker tiers.
 - Navigation icons: 14px. Card icons: 20px. Use local inline SVG when icons are useful; no icon CDN or required remote font.
 - Radii: 8px navigation/controls, 16px cards, fully rounded pill CTAs and status badges.
-- Persistently distinguish an explicitly selected path with a strong frame and connections. A recommendation needs a separate treatment (for example a dashed frame and status text); never imply selection by styling it as selected. Temporary inspection must preserve actual selections.
+- Persistently distinguish an explicitly selected path with a strong frame and connections. A recommendation needs a separate treatment (for example a dashed frame and status text); never imply selection by styling it as selected. Temporary inspection must preserve actual selections. In this tree, temporary inspection highlights directly connected visible lines in blue (#2563EB); the saved path keeps its neutral frames. Use the layout, zoom, and conditional signal-line behavior in `references/progressive-tree.md`.
 - Adapt composition to the artifact: evidence map, chart/report, comparison and tree may use different layouts. Keep concise previews and link to full source context where appropriate.
 - Charts may retain meaningful categorical or sequential color encodings with labels; use the shared neutral UI around them. Do not change data, quotes or review status while applying style.
 
