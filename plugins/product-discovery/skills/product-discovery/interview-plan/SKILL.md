@@ -17,7 +17,7 @@ This skill **plans** interviews. It does not run them, does not invent participa
 
 ```
 desk-research (competitors / industry) ─┐
-                                        ├─→ interview-plan → affinity-mapping → ost-builder
+                                        ├─→ interview-plan → affinity-mapping → supersprint
 data-analysis (your own quant data)    ─┘
 ```
 
@@ -105,6 +105,8 @@ Load `references/sample-and-consent.md`.
 Decide and write down: starting N with a **stopping rule and an expansion rule** (never a bare number), cadence, session shape (45 min = 20-30 interviewing + 15-25 writing notes while it is fresh), roles (interviewer + notetaker), consent and data handling, file naming, and where transcripts land.
 
 ## Stage 5 - Artifacts
+
+For any HTML view produced at this stage, read `references/html-style.md` and inline `assets/html-style.css` as the default visual style unless the user requests another. Preserve the agreed plan, gates and output set; this style rule does not add an HTML deliverable to every run.
 
 Generate from `assets/`:
 

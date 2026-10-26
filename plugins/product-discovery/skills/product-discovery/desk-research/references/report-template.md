@@ -1,81 +1,27 @@
-# Report Template
+# Report and Evidence File
 
-Structure for the final report saved to `<project>/research/<YYYY-MM-DD>-desk-<short-topic>.md`.
+Use the user's language for headings and prose. The report is an answer for the reader; the evidence file makes that answer inspectable. Do not organize either as two agent transcripts.
 
-## Frontmatter
+## Report
 
-```yaml
----
-title: "Desk research: <topic>"
-project: <project name>
-created: <YYYY-MM-DD>
-status: draft | final | iterated-on-YYYY-MM-DD
-sources: [<N competitive>, <N scholar>]
-hypothesis: "<working hypothesis from brief>"
-disposition: supported | refuted | mixed | insufficient-data
-tags: [desk-research, <topic tags>]
----
-```
+Quick: at most 700 words. Deep: at most 1200 words. Count headings, tables, link labels and source notes; exclude URL targets. These are ceilings, not targets. Do not shrink necessary context merely to include more findings.
 
-## Sections
+Use this compact shape, adapting headings to the actual question:
 
-### Header block
+1. **Answer and scope.** A short opening directly answering the question and naming the setting/date that matters. State the key condition or unresolved distinction; do not use "mixed" or "it depends" as a complete answer. Avoid a metadata block and an introduction about doing research.
+2. **What the evidence tells us.** Usually 3-5 findings, organized by the user's questions or meaningful conditions. For each, connect the observation to its significance, strongest relevant counterevidence and limit of transfer. Identify the studied task/population and measure when needed. Use a small comparison table when it makes different conditions easier to understand. Link original sources beside the claims. Each study's result should be described once, not repeated in parallel sections.
+3. **What follows.** If a decision exists, give the recommendation and a concrete next move that responds to the evidence. A proposed test identifies the comparison, outcome, risk and result that would change the decision. Without a decision, identify the useful next research question. Do not bolt on a generic pilot recommendation.
+4. **Most important limits.** A short paragraph containing remaining uncertainty that could change the answer, without repeating caveats already explained. Link the evidence file. No full bibliography or process footer in the report.
 
-Brief (one sentence why) + working hypothesis + decision at stake + source count + date.
+Write in plain language. Explain what an uncertainty estimate means when it matters; do not list statistics without interpretation. Prefer "the comparison was not randomized, so other differences may explain the result" over an unexplained label such as "low confidence". Keep quotations rare and necessary. Do not repeat the opening as a conclusion.
 
-### TL;DR
+## Evidence file
 
-3-5 sentences. **Must take a position** - "mixed" is only valid when evidence genuinely conflicts, not as a hedge.
+Keep the backing material complete enough to inspect without making the report carry it. Suggested organization:
 
-1. Is the hypothesis supported, refuted, or mixed? Clear answer.
-2. Strongest evidence for/against, with a number if possible.
-3. Strongest counter-evidence or boundary condition.
-4. What this means for the decision at stake.
-5. (Optional) Biggest gap - what we still don't know.
+- **Brief and coverage:** question, hypothesis if any, population, decision, scale, search date, source languages/date range and material scope limits.
+- **Evidence register:** group by underlying study, with stable IDs, original URLs and full citations. Record design, sample/population, tasks, intervention/version, comparison, measure, result, uncertainty, strengths, limits, commercial interests and full-text/abstract-only access. For a missing detail, say it was not verified. Keep materially relevant evidence even when it did not fit the short report, and explain exclusions that affect the conclusion.
+- **Synthesis notes:** answer per question; distinguish observed subgroup differences, plausible explanations and unknowns. Record the strongest challenge to the hypothesis and which claims remain unproven. No fixed quota or lengthy repeated narrative.
+- **Search and access notes:** principal queries/routes, duplicates, inaccessible sources and stopping rationale. Include actual query/operation counts when available, and record overruns or unproductive routes honestly. These details stay out of the short report.
 
-### 1. Problem and research questions
-
-Copy from brief: problem statement, numbered research questions, falsification criterion (or note it was skipped).
-
-### 2. Competitive findings
-
-Per research question: 2-5 strongest findings, sorted High → Low. Each finding gets: 2-3 sentence description with numbers, verbatim quote if valuable, source URLs, effect size, caveats.
-
-### 3. Scholar findings
-
-Same structure as competitive. Add per finding: methodology, sample size, effect size with statistics, DOI/URL.
-
-### 4. Cross-source synthesis
-
-Where competitive and scholar **agree** (2-4 convergence points). Where they **disagree** (most valuable part - explain why). Strongest quotes and numbers across both streams (3-7).
-
-### 5. Disconfirming evidence
-
-**Dedicated section - the heart of the skill.** 3-7 strongest counter-arguments, sorted by strength. Each gets: description, confidence, source, implication for the decision.
-
-If thin (<3 Medium+ findings): add an explicit warning noting potential publication bias or search limitations.
-
-### 6. Decision implications
-
-Return to the decision at stake. Give: one-line recommendation, 2-3 paragraph justification with specifics, boundary conditions (where evidence supports vs. urges caution, what's a low-risk first move), risk if the hypothesis is wrong.
-
-### 7. Gaps and next steps
-
-What we don't know (bulleted). For each major gap: what specific research would close it.
-
-### 8. Bibliography
-
-Full list, sorted by section (competitive / scholar) then alphabetically. Each entry: `[Type] Author/Org (Year). "Title." Source. URL (accessed date)`. Vendor sources tagged `[VENDOR]`.
-
-### 9. Methodology note
-
-One-paragraph footer: skill used, date, scale (quick/deep), query count, sources reviewed vs. passed rubric, iteration history if any.
-
-## Key rules
-
-- TL;DR must take a position, not hedge
-- Disconfirming section should be ~1/3 of report length when counter-evidence is substantial
-- Keep verbatim quotes in original language (italicized), analysis in user's language
-- Confidence labels visible on every finding
-- Implications must tie back to the decision at stake
-- Gaps are as important as findings - they're the map to the next research
+Avoid copying entire papers or unnecessary quotations into the register. Original sources remain the authority. The evidence file is a substantive deliverable, not disposable agent scratch space.

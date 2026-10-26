@@ -320,58 +320,7 @@ def render(data: dict[str, Any]) -> str:
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{PAGE_TITLE}}</title>
-  <style>
-    :root { color-scheme: light dark; --bg:#f7f6f2; --surface:#ffffff; --text:#171717; --muted:#6b6b66; --line:#d9d7cf; --soft:#eceae2; --accent:#2463eb; --accent-soft:#e8efff; --warning:#8b4b09; --shadow:0 12px 34px rgba(20,20,18,.08); }
-    @media (prefers-color-scheme:dark) { :root { --bg:#151513; --surface:#20201d; --text:#f4f3ee; --muted:#aaa89f; --line:#3a3934; --soft:#2a2a26; --accent:#82aaff; --accent-soft:#1d3157; --warning:#f0ae68; --shadow:0 14px 36px rgba(0,0,0,.28); } }
-    * { box-sizing:border-box; }
-    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; line-height:1.45; }
-    button { font:inherit; }
-    .page { width:min(1500px,100%); margin:0 auto; padding:32px; }
-    .masthead { display:flex; justify-content:space-between; align-items:end; gap:24px; flex-wrap:wrap; padding-bottom:24px; border-bottom:1px solid var(--line); }
-    .eyebrow,.theme header span,.opportunity-list h3,.trace-kicker { color:var(--muted); font-size:.78rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
-    h1,h2,h3,p { margin:0; }
-    h1 { font-size:clamp(2rem,5vw,4rem); line-height:1.02; letter-spacing:-.04em; max-width:18ch; }
-    .focus { margin-top:10px; max-width:70ch; color:var(--muted); font-size:1.05rem; }
-    .status { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--line); border-radius:999px; color:var(--warning); background:var(--surface); }
-    .status::before { content:""; width:8px; height:8px; border-radius:50%; background:currentColor; }
-    .stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border-bottom:1px solid var(--line); }
-    .stat { padding:18px 0; }
-    .stat + .stat { padding-left:18px; border-left:1px solid var(--line); }
-    .stat strong { display:block; font-size:1.55rem; }
-    .stat span { color:var(--muted); }
-    .workspace { display:grid; grid-template-columns:minmax(0,1fr) minmax(280px,360px); gap:28px; align-items:start; margin-top:28px; }
-    .board { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); gap:20px; }
-    .theme { display:grid; align-content:start; gap:14px; padding-top:13px; border-top:3px solid var(--text); min-width:0; }
-    .theme h2 { margin-top:5px; font-size:1.25rem; line-height:1.2; }
-    .notes { display:grid; gap:8px; }
-    .note { display:grid; grid-template-columns:auto 1fr; gap:9px; width:100%; padding:10px 12px; text-align:left; color:var(--text); background:var(--surface); border:1px solid var(--line); border-radius:10px; cursor:pointer; transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease; }
-    .note:hover { border-color:var(--accent); transform:translateY(-1px); }
-    .note:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
-    .note[aria-pressed="true"] { border-color:var(--accent); box-shadow:0 0 0 2px var(--accent-soft); }
-    .note strong { color:var(--accent); }
-    .opportunity-list { padding-top:12px; border-top:1px solid var(--line); }
-    .opportunity-list ul { display:grid; gap:10px; margin:8px 0 0; padding:0; list-style:none; }
-    .opportunity-list li { display:grid; grid-template-columns:auto 1fr; gap:7px; }
-    .opportunity-list li > span { color:var(--accent); font-weight:700; }
-    .opportunity-list q { quotes:"„" "”" "‘" "’"; }
-    .opportunity-list small { grid-column:2; color:var(--muted); }
-    .trace { position:sticky; top:20px; padding:20px; background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); }
-    .trace-path { display:flex; flex-wrap:wrap; gap:5px; margin:9px 0 18px; color:var(--muted); font-size:.82rem; }
-    blockquote { margin:0 0 20px; padding-left:14px; border-left:3px solid var(--accent); font-size:1.12rem; }
-    dl { display:grid; gap:13px; margin:0; }
-    dt { color:var(--muted); font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; }
-    dd { margin:3px 0 0; white-space:pre-line; }
-    .divergence { margin-top:36px; padding-top:18px; border-top:3px solid var(--text); }
-    .divergence h2 { font-size:1.45rem; }
-    .table-wrap { overflow-x:auto; margin-top:12px; }
-    table { width:100%; border-collapse:collapse; }
-    th,td { padding:12px 10px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line); }
-    th { color:var(--muted); font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; }
-    footer { margin-top:22px; color:var(--muted); font-size:.82rem; }
-    @media (max-width:900px) { .workspace { grid-template-columns:1fr; } .trace { position:static; } }
-    @media (max-width:600px) { .page { padding:20px 16px; } .stats { grid-template-columns:repeat(2,1fr); } .stat:nth-child(3) { border-left:0; } .stat:nth-child(n+3) { border-top:1px solid var(--line); } .board { grid-template-columns:1fr; } }
-    @media print { :root { --bg:#fff; --surface:#fff; --text:#000; --muted:#555; --line:#bbb; --accent:#000; --accent-soft:#fff; --shadow:none; } .page { width:100%; padding:0; } .workspace { grid-template-columns:1fr; } .trace { position:static; break-inside:avoid; } .note { break-inside:avoid; } }
-  </style>
+  <style>{{STYLE}}</style>
 </head>
 <body>
   <main class="page" id="affinity-map">
@@ -388,7 +337,7 @@ def render(data: dict[str, Any]) -> str:
     <section class="workspace" aria-label="Affinity map and evidence path">
       <div class="board">{{THEME_SECTIONS}}</div>
       <aside class="trace" aria-live="polite">
-        <div class="trace-kicker">{{EVIDENCE_PATH}}</div>
+        <div class="trace-kicker"><svg class="card-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 4h14v12H3ZM6 8h8M6 12h5"/></svg>{{EVIDENCE_PATH}}</div>
         <div class="trace-path"><span>{{TRANSCRIPT}}</span><span>→</span><span>{{NUGGET}}</span><span>→</span><span>{{THEME}}</span><span>→</span><span>{{OPPORTUNITY}}</span></div>
         <blockquote id="trace-quote">{{FIRST_QUOTE}}</blockquote>
         <dl>
@@ -428,7 +377,10 @@ def render(data: dict[str, Any]) -> str:
 </body>
 </html>
 """
+    assets = Path(__file__).resolve().parents[1] / "assets"
+    style = (assets / "html-style.css").read_text(encoding="utf-8") + "\n" + (assets / "affinity-layout.css").read_text(encoding="utf-8")
     replacements = {
+        "STYLE": style,
         "LANG": esc(language),
         "PAGE_TITLE": esc(page_title),
         "TITLE": esc(ui["title"]),

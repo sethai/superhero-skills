@@ -89,6 +89,10 @@ The renderer includes English (`en`) and Polish (`pl`) labels. For another langu
 
 `title`, `nuggets`, `themes`, `opportunities`, `participants`, `evidence_path`, `transcript`, `nugget`, `theme`, `opportunity`, `source`, `divergences`, `counterevidence`, `signal`, `related_evidence`, `draft`, `reviewed`, `no_divergence`.
 
+## Preview and visual checks
+
+For generated HTML artifacts, use the host app's built-in/in-app browser as the primary preview and for visual/interaction checks. Open a visible browser tab through the host's supported capability and verify that it loaded; a file link, editor tab, or queued open request alone is not a confirmed preview. Use Chrome or another external browser only when the in-app browser is unavailable, cannot display the artifact, or lacks a required inspection capability; briefly explain that fallback and keep the in-app preview primary when possible. Honor an explicit user browser choice. If the host blocks access by policy, report the limitation rather than bypassing it through another browser or route.
+
 ## Rendering
 
 Run from the user's project, using the actual path to this skill:

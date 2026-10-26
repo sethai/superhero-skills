@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "language": "en",
+  "product": null,
+  "cycle": null,
+  "working_question": null,
+  "current_stage": "goal",
+  "sources": [],
+  "analysis_runs": [],
+  "nodes": [],
+  "edges": [],
+  "selected_opportunity_id": null,
+  "selected_idea_ids": [],
+  "selected_experiment_ids": [],
+  "recommended_next_experiment_ids": [],
+  "pending_reviews": [],
+  "next_action": null,
+  "history": [],
+  "tree": {
+    "revision": 1,
+    "html_path": "tree/tree.html",
+    "mermaid_path": "tree/tree.mmd",
+    "external_target": null
+  }
+}

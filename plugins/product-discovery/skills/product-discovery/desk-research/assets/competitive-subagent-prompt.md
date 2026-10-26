@@ -1,60 +1,16 @@
-# Sub-agent A - Competitive Scan (delta)
+# Applications and Company Cases
 
-Prepend `shared-subagent-base.md` before this prompt. This file adds competitive-specific instructions.
+Use after the shared instructions and quality rubric.
 
----
+Cases to consider: {{companies_to_investigate}}
+Starting search terms: {{search_keywords}}
+Source priorities for this domain: {{source_heuristics}}
+Default date window: {{competitive_recency_window_years}} years through {{current_year}}. Adjust relevance to the pace of change; don't treat an old intervention as its current version.
 
-## Your specialization
+Find what organizations actually tried, against which comparison, with what measured outcome. Prioritize original evaluations, documented cases, engineering reports or source data relevant to the domain. An adoption announcement is not a measured benefit. Do not apply a fixed list of industries or publications to every question.
 
-You are the COMPETITIVE SCAN agent. Find how other companies/industries addressed the same problem: what intervention, what measured outcome.
+Choose productive queries rather than searching every combination of company and keyword. Include failures, unchanged outcomes, implementation costs and alternative explanations. Follow leads to originals; use commentary only as a route to evidence.
 
-## Queries
+Distinguish randomized evaluation, before/after comparison, comparisons of adopters with non-adopters, and self-reported experience. Record whether quality, downstream work or long-term outcomes were measured. Do not equate more output with value, or self-selected adoption with a causal gain.
 
-Companies/cases to investigate: {{companies_to_investigate}}
-Search keywords (run each as separate WebSearch): {{search_keywords}}
-Source heuristics: {{source_heuristics}}
-Recency: {{recency_window_years}} years ({{recency_start_year}}-{{current_year}})
-
-## Search strategy
-
-For each keyword and each company, run WebSearch. From the first 10 results, pick 1-3 promising ones.
-
-**Prioritize:** trade press (Business of Fashion, Modern Retail, Retail Dive, Glossy, WWD, Vogue Business, HBR case studies), analyst reports (McKinsey, BCG, Bain, Forrester), engineering blogs/case studies from industry companies, conference talks/transcripts, podcast transcripts, industry-specific reports (NRF, IRT).
-
-**Deprioritize:** vendor whitepapers (flag, don't exclude), random Medium posts, LinkedIn thought leadership without data.
-
-After getting URLs, **open and read the actual page** with the host's page-retrieval tool. Don't trust search snippets.
-
-## Disconfirmation search patterns
-
-- `"{{intervention}}" "did not work"`, `"failed"`, `"no impact"`
-- `"{{outcome}}" "alternative explanation"`, `"confounders"`
-- `"{{competitor}} {{intervention}}"` + check for post-mortems
-
-If nothing after 3+ queries, try 3 more with different angles before reporting the gap.
-
-## Output file
-
-Save to: `{{project_path}}/research/.desk-tmp/competitive-findings-<timestamp>.md`
-
-```yaml
----
-sub_agent: competitive
-timestamp: <ISO 8601>
-queries_run: <N>
-sources_reviewed: <N>
-findings_passed_rubric: <N>
-disconfirming_findings: <N>
----
-```
-
-Sections: Summary (200 words) → Findings (confirming first, then disconfirming, sorted by confidence) → Gaps & failed queries → Recommended follow-up queries.
-
----
-
-## Notes for parent (not for sub-agent)
-
-- Dispatch with the host's general-purpose sub-agent capability. The prompt is self-contained; if delegation is unavailable, run it unchanged in the main context.
-- If <3 findings or empty disconfirming section: send back with specific contrarian queries.
-- If >50% vendor sources: signal vendor-dominated discourse in report TL;DR.
-- Cost cap: quick ~20 web ops, deep ~40-50.
+Save to `{{project_path}}/research/.desk-tmp/competitive-findings.md`. Include substantive findings, strongest challenge, gaps, actual coverage and operation counts. Mark studies likely to overlap the literature stream so the parent counts each underlying study once.

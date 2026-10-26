@@ -17,7 +17,7 @@ Superhero Skills are one half of a larger system.
 | [Super Brain](https://github.com/superhero-tech/super-brain) | Keeps your context, knowledge, projects and decisions, so the agent does not start every conversation from zero. |
 | Superhero Skills | Give the agent focused, tested ways to work through product problems with you. |
 
-Together, these two layers make up the Product Builder OS.
+Together, these two layers make up the Product Builder OS. Superhero Skills also works on its own: Super Brain or a personal knowledge vault is not required.
 
 ## The Super Loop: product development for the AI era
 
@@ -42,15 +42,59 @@ Traditional teams run this loop in quarters, slowed down by a handoff at every s
 
 **Superhero Skills** is one plugin with two skill folders: **Product Discovery** and **Product Design**. The technical installation ID and command namespace remain `product-discovery`, so existing installations can update normally. Folder grouping organizes the repository; the host may display a flat list of skills.
 
+The skills need no separate API keys, personal knowledge vault or private development repository. Supply your own project context and evidence. Requirements depend on the work:
+
+- A host that can read skills and save files in your chosen project.
+- Python 3 for the bundled tree, affinity-map and recommendation renderers; these use only the standard library. The optional customer-opinion counter also uses standard Python.
+- For data analysis, pandas, matplotlib and seaborn; DuckDB for SQL, and readers such as openpyxl or pyarrow when the input format needs them. The plugin provides instructions and scripts, not a Python distribution or these libraries.
+- Live web search and readable original sources for `desk-research` and `customer-research`.
+- Browser support for automatic HTML previews. If preview is blocked or unavailable, saved HTML and Mermaid remain available through file links. Visual verification is then reported as unavailable.
+
+Miro and FigJam are optional integrations. Local discovery does not require an external board.
+
 ### Product Discovery
 
 | Skill | What it does |
 |---|---|
+| `supersprint` | Guides a discovery cycle with the included specialists, saved decisions and a growing HTML/Mermaid tree. |
+| `experiment-design` | Turns selected ideas into concrete prototypes, demand tests or commitment tests, with hypotheses and observable changes. |
 | `customer-research` | Finds public customer opinions and delivers a short report, sourced CSV, and HTML with grouped quotes and mention counts. |
 | `affinity-mapping` | Turns interview transcripts into evidenced themes, opportunities and an interactive evidence map. |
-| `desk-research` | Runs competitive and scholarly research in parallel, including disconfirming evidence. |
+| `desk-research` | Answers a research question using current sources, counterevidence and a separate evidence register. |
 | `interview-plan` | Creates research questions, a screener, an interview guide and a note-taking format. |
 | `data-analysis` | Guides analysis from a business question through data checks, exploration and recommendations. |
+
+#### Supersprint: from signals to a decision
+
+`supersprint` connects the discovery skills into one process. Start with a product and a problem or decision to investigate. A brief, an existing outcome, CSV files, interview transcripts and previous research are useful inputs, but you do not need a complete research folder to begin. If the outcome is missing, the skill helps establish a working goal and keeps unknowns visible.
+
+```text
+Goal -> Signals -> Opportunities -> Ideas -> Experiments -> Observed results -> Decision
+```
+
+Supersprint brings together the research, analysis and experiment-design skills listed under Product Discovery above, using the relevant one when needed. You can also use these skills independently. Run the whole process, resume a saved cycle, or review the current stage.
+
+Try a request such as:
+
+> Start a Supersprint for this product. We want to understand why customers do not return. Use the attached brief, CSV files and transcripts, and save the work in this project.
+
+The discovery tree grows as the work progresses. After meaningful additions and stage changes, the skill refreshes a standalone HTML view and a Mermaid export. Selected paths are highlighted; clicking a node shows a short explanation and links to its full sources. Hypotheses sit inside experiments rather than forming a separate layer.
+
+Each cycle keeps its stage documents, evidence references, decisions and `state.json` under `supersprint/<cycle>/` in your project. Significant tree revisions receive snapshots, so later conversations can resume from saved work. The bundled renderer and visual styles require no personal Second Brain, Super Brain installation or external board. Miro and FigJam are optional integrations.
+
+You choose the opportunity, ideas and next experiment, unless you explicitly delegate those choices. Experiments explain the hypothesis, practical method and observable change; success criteria are directional unless you provide or request numerical thresholds. Plans remain separate from actual results, and missing observations remain missing. The next decision may be to develop, revise, discard or research further.
+
+The skill opens HTML in the host's built-in browser when permitted. If automatic preview is unavailable or blocked, it still saves the HTML and Mermaid and provides file links. Updates run during the conversation, not as a background service.
+
+#### Experiment design
+
+`experiment-design` compares tests for the uncertainty that matters next. Methods include prototypes (paper or clickable screens, video, Wizard of Oz, concierge), demand tests (smoke tests, fake doors, landing and pricing pages), and commitment tests (presales, deposits, letters of intent or paid pilots). Categories can overlap.
+
+Each recommendation explains the hypothesis, what changes in practice, the observable change, the decision results can inform, and why to test it now. Recommendations are saved as Markdown and a standalone HTML portfolio. Expected change is directional by default; numerical success criteria are supplied or requested by you. A click does not establish use or payment, and a plan does not count as an executed experiment.
+
+#### Customer research
+
+`customer-research` aims to collect about 100 verified, deduplicated public customer opinions. It produces `raport.md` (up to 700 words), `cytaty.csv` with sources and context, and a standalone `raport.html` with a summary and quotes grouped by theme. Each reported problem includes a mention count with its denominator. When accessible evidence falls short, the report states the actual sample size and gaps.
 
 ### Product Design
 
@@ -58,13 +102,7 @@ Traditional teams run this loop in quarters, slowed down by a handoff at every s
 |---|---|
 | `super-landing-page` | Builds a distinctive landing page through a guided interview, independent art direction, a detailed execution prompt, and visual iteration. |
 
-The skills need no separate API keys. `desk-research` and `customer-research` require the host to have live web search available.
-
-### Customer research
-
-`customer-research` aims to collect about 100 verified, deduplicated public customer opinions. It produces `raport.md` (up to 700 words), `cytaty.csv` with sources and context, and a standalone `raport.html` with a summary and quotes grouped by theme. Each reported problem includes a mention count with its denominator. When accessible evidence falls short, the report states the actual sample size and gaps.
-
-### Super Landing Page workflow
+#### Super Landing Page workflow
 
 `super-landing-page` asks one question at a time in chat, with the complete set of options and a recommendation. It turns the answers into a brief, project-specific art direction, and a self-contained execution prompt, then builds and checks a responsive page. Composition, motion, palette, and supporting details follow the chosen concept. Conversation and artifacts use your language. You can also request only the prompt and specification.
 
@@ -110,6 +148,8 @@ If Claude Code asks you to reload the plugin, run `/reload-plugins` or start a n
 Invoke a skill explicitly, for example:
 
 ```text
+/product-discovery:supersprint
+/product-discovery:experiment-design
 /product-discovery:customer-research
 /product-discovery:affinity-mapping
 /product-discovery:desk-research
@@ -127,11 +167,13 @@ codex plugin marketplace add superhero-tech/superhero-skills
 codex plugin add product-discovery@superhero-skills
 ```
 
-Start a new Codex session after installation. You can also open `/plugins` to browse the `Superhero Skills` marketplace.
+Start a new Codex session after installation. Version `1.4.0` includes Supersprint and experiment design; if they are absent, check that your installed plugin has updated to this version or later. You can also open `/plugins` to browse the `Superhero Skills` marketplace.
 
 Invoke a skill explicitly, for example:
 
 ```text
+$product-discovery:supersprint
+$product-discovery:experiment-design
 $product-discovery:customer-research
 $product-discovery:affinity-mapping
 $product-discovery:desk-research

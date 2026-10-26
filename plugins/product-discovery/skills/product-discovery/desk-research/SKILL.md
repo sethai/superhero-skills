@@ -1,126 +1,76 @@
 ---
 name: desk-research
-description: "Cited secondary research via two parallel sub-agents (competitive scan + scholar scan), both forced to surface disconfirming evidence. Use when the user wants desk research or a literature review, a competitive analysis of how others solved a problem, or asks 'is there evidence for' a hypothesis."
+description: "Use when the user wants desk research, a literature review, competitive evidence, or to test a hypothesis. Search live sources, challenge assumptions, and explain what the evidence means in a concise report with a separate evidence file."
 metadata:
   ready_to_publish: "true"
 ---
 
 # Desk Research
 
-Frame the question with the user, design queries together, dispatch two parallel sub-agents (competitive + scholar), synthesize, and produce a report with mandatory disconfirming evidence.
+Answer the user's research question with traceable evidence, explain when the answer changes, and connect it to their decision when one exists. Research depth belongs in the evidence file; the report should make the subject easier to understand.
 
-Respond and produce all artifacts (including the report) in the user's conversation language.
+Respond and produce all artifacts in the user's conversation language.
 
-This skill runs on live web search. Confirm web search tools are available before proceeding; if they are not, tell the user and stop - the report must come from live sources, not memory.
+Use live web search and read original sources. If search is unavailable, say so and stop rather than presenting remembered claims as fresh research. Never modify `ost-state.json`.
 
-## Reference load map
+## 1. Establish the brief
 
-Load each file only at the stage indicated:
+Read relevant project context and any existing `research/desk-research-state.json`. Reuse an agreed brief and prior user choices. Resume a matching run; for a different question or an explicit comparison, create a separate run directory and preserve earlier results.
 
-| Stage | Load |
-|-------|------|
-| 0 Setup | `assets/state-template.json` |
-| 3 Dispatch | `assets/shared-subagent-base.md` + `assets/competitive-subagent-prompt.md` / `assets/scholar-subagent-prompt.md` |
-| 4 Synthesis | `references/quality-rubric.md` (re-check confidence, synthesis checks) |
-| 5 Report | `references/report-template.md` |
+Identify the question, relevant population or setting, working hypothesis if any, and decision if one exists. Ask only about missing information that would materially change the research, one question at a time. Do not invent a business decision for an exploratory request. State reasonable assumptions and continue when the user has delegated the process; do not require approval of queries or synthesis by default.
 
-## Hard rules (always active)
+Use up to three focused research questions for a normal run. If the hypothesis says "usually", "better", or "without loss of quality", identify the population, comparison and outcome needed to evaluate that claim. A counterexample may establish a boundary without refuting a claim about what usually happens. Separate compound claims, such as speed and quality, when their evidence differs.
 
-1. **Confront the hypothesis, don't confirm it.** At least 1/3 of the report must address disconfirming evidence. This is the heart of the skill.
-2. **Every finding needs a URL.** No URL = not a finding.
-3. **Minimum 3 independent sources for High confidence.** Three articles citing the same report = 1 source.
-4. **Vendor sources flagged, not hidden.** Confidence capped at Low, tagged `[VENDOR]` in bibliography.
-5. **Never modify `ost-state.json`.**
+Default to **quick**. Use **deep** for an explicitly broad review or when requested; question count alone does not determine depth. Explain any material scope expansion before undertaking it. Initialize `assets/state-template.json` for a new run; keep an existing state's usable brief and fields when resuming.
 
-Full scoring criteria live in `references/quality-rubric.md`.
+## 2. Plan and collect evidence
 
-## Lazy user mode
+Read `references/quality-rubric.md` before evaluating evidence. Search both practical applications and research literature unless the scope calls for only one. Choose terms, cases and source languages for the actual domain; technical questions need primary papers, documentation or original research reports rather than commentary.
 
-If the user signals disengagement ("skip", "", "." or equivalent): auto-decide, state your pick and why in one sentence, mark `auto_decided: true` in state, continue. Exception: if the disconfirmation prompt (1.4) is skipped, mark `disconfirmation_skipped: true` and strengthen the sub-agents' falsification mandate.
+For rapidly changing topics such as AI and coding agents, actively seek the most current applicable primary evidence and follow-ups before selecting historical studies. Apply the rubric's freshness check using data-collection dates and tool generations, not publication date alone. Older results can explain mechanisms or provide historical baselines; conclusions about present tools need evidence that actually applies to them. If that evidence is missing, say the current effect is unknown rather than letting historical results stand in for it.
 
-## Workflow
+Plan searches for the hypothesis, rival explanations, null or adverse results, and conditions where the effect changes. Record the main searches and access gaps in the evidence file. There is no quota of contrary findings or percentage of negative text. If no credible counterevidence is found, state the search limitation without inventing opposition or claiming its absence proves the hypothesis.
 
-```
-Setup → Brief gate → Query design gate → Sub-agent dispatch (||) → Synthesis gate → Report
-```
+When delegation is available, dispatch the two scans in parallel using:
 
-If invoked on existing state, jump to the stage in `current_stage` (see Resume routing).
+- `assets/shared-subagent-base.md` plus `assets/competitive-subagent-prompt.md` for applications and company cases.
+- `assets/shared-subagent-base.md` plus `assets/scholar-subagent-prompt.md` for research literature.
 
-## Stage 0 - Setup
+Include the quality rubric and brief in each dispatch. Substitute the placeholders from the brief, query plan and project path. If delegation is unavailable, run the scans sequentially and keep their notes separate. Delegation is a research technique, not the report's organizing structure.
 
-1. **Detect state.** Look for `desk-research-state-*.json` in the project folder or `research/`. If found, offer: resume / jump to stage / start new (archive old).
-2. **Ingest context.** Scan the project folder: `brief.md` and `*-brief.md`; first 80 lines of every `.md` in `research/` and `analyses/`; `ost-state.json` read-only (outcome statement + top 2-3 opportunities by PRES); note `*.csv`/`*.xlsx` filenames without loading them. Extract `industry_or_domain` from the brief; if the folder is empty, ask directly.
-3. **Confirm scope** (single-choice): single problem (default) / broader literature scan (scale=deep) / competitive only / scholar only. Initialize state from `assets/state-template.json`.
+For quick, aim for 5-7 relevant sources per stream, allowing overlap. Start with about 20 web operations per stream; count each query, page open and find, including failed requests. These are planning guides, not reasons to pad evidence or stop before verifying a central claim. Review relevance and access problems before expanding. Stop unproductive retrieval routes promptly, and record actual coverage or overruns instead of looping to satisfy quotas. Deep reviews can broaden coverage where it changes the answer.
 
-## Stage 1 - Research brief gate
+Read the methods, results and limitations of studies that carry the conclusion, not just their abstracts. Try an author manuscript or institutional repository when full text is blocked. If still abstract-only, limit the claim accordingly and name any missing detail that matters; do not imply the full study was assessed.
 
-1. From context, formulate: **problem statement** (one falsifiable sentence), **working hypothesis** (what the user already assumes, often unstated), **decision at stake** (what gets approved/rejected). Ask directly for anything you can't extract - don't invent.
-2. Propose 3-5 falsifiable research questions ("Does X correlate with Y?", "Under what conditions..."). Show a numbered list; loop with the user until approved.
-3. Set scale from question count: 1-3 → quick (~5-7 sources per sub-agent, 1-2 page report); 4-5 → deep (~15+ sources, full report). Tell the user explicitly, offer override.
-4. **Disconfirmation prompt (soft gate).** Ask what evidence would prove the hypothesis WRONG. Accept any answer; if skipped, mark `disconfirmation_skipped: true`.
-5. Show the full brief (problem, hypothesis, decision, questions, scale, falsification criterion). Gate: OK / edit / stop and discuss.
+## 3. Synthesize by question and condition
 
-## Stage 2 - Query design gate
+Read both scans in full. Deduplicate underlying studies across streams, preprints, journal versions and company retellings. Cluster by what the reader needs to understand, not by which agent found it.
 
-1. **Competitive queries.** Per research question: 5-10 companies/cases (leaders + niche + adjacent industry), 3-5 English search keywords, recency window (default 5 years), source heuristics (prioritize trade press, analyst reports, case studies; flag vendor whitepapers).
-2. **Scholar queries.** Map the user's business language to academic language. Show the mapping table (`USER LANGUAGE → ACADEMIC LANGUAGE`, 1-2 query strings each) - this is where users often add a key term.
-3. Confirm all queries with the user (edit/add/remove), save the final set to state.
+For each question, distinguish:
 
-## Stage 3 - Sub-agent dispatch (parallel when available)
+- What was observed, for whom, doing what, with which intervention or version, and against what comparison.
+- What the design can establish, and how well it fits the user's setting.
+- The strongest material counterexample or limitation and how it changes the answer.
 
-Dispatch both scans with the host's sub-agent or delegation capability. Start them in parallel when the host supports parallel delegation. In Claude Code, a general-purpose `Agent` is suitable; in Codex, use the available sub-agent/collaboration mechanism. Do not depend on one provider's tool name. If the host has no delegation capability, run the scans sequentially in the main context and keep their findings in separate files.
+Explain apparent disagreements using differences the sources actually establish: outcomes, task, population, tool generation, study design or time. Do not attribute a difference to experience, task complexity or another moderator merely because two studies differ on it. Distinguish an observed subgroup effect from a plausible explanation and an open question.
 
-- **A - Competitive scan:** prompt = `assets/shared-subagent-base.md` + `assets/competitive-subagent-prompt.md`.
-- **B - Scholar scan:** prompt = `assets/shared-subagent-base.md` + `assets/scholar-subagent-prompt.md`.
+Avoid averaging incompatible measures or treating output counts as time saved, quality or business value. Treat "no statistically significant effect" as uncertainty, not proof of no effect. Older negative evidence needs the same recency scrutiny as positive evidence.
 
-Substitute every `{{placeholder}}` from state (placeholder names match state fields). Computed: `{{recency_start_year}}`, `{{current_year}}`. Special: `{{disconfirmation_criterion_OR_skipped_message}}` - the criterion verbatim, or if skipped: "User skipped the falsification criterion. Your mandate for the disconfirming section is stronger: minimum 4 disconfirming findings at confidence Medium+."
+Form a direct answer and select 3-5 useful findings if supported; fewer is fine. A qualified answer should say which condition matters or which missing fact prevents a decision. "Results are mixed" alone is not a synthesis.
 
-Each sub-agent saves findings to `{project_path}/research/.desk-tmp/<stream>-findings-<timestamp>.md` and returns a 200-word summary.
+## 4. Write and save
 
-Failure handling: competitive empty → queries too narrow, back to 2.1. Scholar empty → may be genuinely under-researched (a legitimate finding), flag in Gaps. Both empty → ask the user: bad queries / under-researched / network issue?
+Read `references/report-template.md`. If an HTML view is requested or produced by the agreed workflow, also read `references/html-style.md` and inline `assets/html-style.css` as the default style unless the user requests another. Keep the research scope, evidence, word limits and agreed output set unchanged; the style rule alone does not add a deliverable. Save two reader-facing files:
 
-## Stage 4 - Synthesis gate
+- `research/<YYYY-MM-DD>-desk-<topic>.md`: the report, at most **700 words for quick** or **1200 for deep**, including headings, tables, link labels and source notes. URL targets do not count.
+- `research/<YYYY-MM-DD>-desk-<topic>-evidence.md`: the evidence register, full source details, access limitations and compact search/method notes. Link it from the report.
 
-1. Read both findings files in full.
-2. Cluster evidence per research question and confront it with the hypothesis (supports/refutes/mixed); collect the strongest quotes and numbers.
-3. Surface cross-source contradictions (competitive vs scholar disagreements) - the most valuable synthesis fragments. Patterns in `references/quality-rubric.md` (Synthesis checks).
-4. **Disconfirming evidence.** Dedicate a section to everything contradicting the hypothesis. If fewer than 3 points at confidence Medium+, send sub-agents back for more.
-5. Show the user the strongest conclusion + strongest counter-evidence. Gate: write report / more counter-evidence / more on topic X / stop and discuss.
+Write for the user's level of familiarity. Prefer familiar terms; explain necessary technical language where it appears. Include a statistic only when its meaning or uncertainty helps the reader. Explain why a conclusion deserves trust or caution instead of repeating unexplained confidence labels. Do not expose internal skill rules, agent roles, operation counts or approval history in the report.
 
-## Stage 5 - Report
+Describe each finding once, with its relevant limitation beside it. The opening can state the answer without replaying the studies. Do not repeat the same percentages in a summary, two scan sections, a synthesis and a separate counterargument section. Keep important uncertainty in the report; the evidence file must not become a place to hide caveats.
 
-1. Generate following `references/report-template.md` exactly.
-2. Save to `<project>/research/<YYYY-MM-DD>-desk-<short-topic>.md`. Set state to `complete`. Clean up `.desk-tmp/` unless the user wants full logs.
-3. Wrap up: report link, one-line TL;DR, strongest counter-evidence to watch, next steps.
-4. The report's evidence is ready-made source material for an Opportunity Solution Tree - when the user's goal is structuring discovery, suggest running the ost-builder skill on it.
+If there is a decision, give a next move specific to the evidence. A recommendation to test should identify the comparison, outcome, main risk, and what result would change the decision. Label proposed thresholds, durations or sample sizes as proposals; do not invent them as research findings. If no decision was requested, close with the most important unresolved question rather than an unsolicited rollout plan.
 
-## Quality gates - stop and fix
+Before finishing, check that the report answers the brief, explains relevant conditions without inventing causes, represents the strongest contrary evidence fairly, and stays within its word limit. Check central citations against original passages and verify that evidence-file links resolve. Store completion and file paths in state; clean up only the run's scratch files after consolidating their evidence. Preserve previous reports when comparing runs; when updating a report in place, retain its prior version in state rather than appending another full narrative.
 
-- Empty or missing disconfirming section → back to 4.4.
-- Bibliography >50% vendor sources → back to 2.1.
-- "Supported" with <3 independent High-confidence sources → note the limitation in the TL;DR.
-- Sub-agent citations without URLs → send back to fix.
-- Disconfirmation skipped AND disconfirming section <3 points → escalate to the user.
-- >50% of competitive sources older than 5 years → flag recency drift.
-
-## Iteration mode
-
-When the user returns to an existing report wanting more: load state + report, repeat the relevant stage (typically 3 with new queries, or 2 with better mappings), dispatch sub-agents with differential queries only, append `## Iteration [date]` before the bibliography. If the disposition changes: keep the original TL;DR as a blockquote, write a new one, update frontmatter.
-
-## Resume routing
-
-| `current_stage` | Action |
-|---|---|
-| `setup` | Start from 0.1 |
-| `brief` | Show existing brief for approval/edit |
-| `queries` | Show existing queries for approval |
-| `dispatch` | Both complete → Stage 4; one complete → re-dispatch missing; pending/failed → re-dispatch; in_progress → ask: re-run or recover from `.desk-tmp/`? |
-| `synthesis` | Stage 4 with existing findings |
-| `report` | Stage 5.1 (synthesis approved, just needs the file) |
-| `complete` | Offer iteration mode |
-
-## Style and file conventions
-
-- One question at a time, max 4 options + open-ended. Always show citations with suggestions.
-- Push back on thin evidence; be honest about gaps. Mirror the user's vocabulary from their project files.
-- State: `<project>/research/desk-research-state.json`. Temp: `<project>/research/.desk-tmp/`. Report: `<project>/research/<YYYY-MM-DD>-desk-<short-topic>.md`. Never write to `4-Knowledge/`.
+Return the report link and its main answer. Keep research process details in the evidence file.

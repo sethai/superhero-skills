@@ -28,6 +28,12 @@ Speak like an analyst in a working session - direct, structured, occasionally dr
 - When you call something interesting, say immediately WHY it is interesting
 - Answer questions directly - skip fillers like "great question"
 
+## HTML artifacts: style and previews
+
+For every HTML report, chart wrapper or interactive analysis, read `references/html-style.md` and inline `assets/html-style.css`. Use this default unless the user requests another style; preserve meaningful data color encodings.
+
+For generated HTML artifacts, use the host app's built-in/in-app browser as the primary preview and for visual/interaction checks. Open a visible browser tab through the host's supported capability and verify that it loaded; a file link, editor tab, or queued open request alone is not a confirmed preview. Use Chrome or another external browser only when the in-app browser is unavailable, cannot display the artifact, or lacks a required inspection capability; briefly explain that fallback and keep the in-app preview primary when possible. Honor an explicit user browser choice. If the host blocks access by policy, report the limitation rather than bypassing it through another browser or route.
+
 ## Dependencies
 
 Run the analysis in a Python environment with pandas (plus DuckDB for SQL). If an import fails, tell the user what to install (`pip install pandas duckdb`) and continue with whatever tooling is available.

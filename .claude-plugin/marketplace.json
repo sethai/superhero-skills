@@ -11,22 +11,23 @@
       "name": "product-discovery",
       "displayName": "Superhero Skills",
       "source": "./plugins/product-discovery",
-      "description": "Product discovery and prototyping workflows: public customer research, affinity mapping, desk research, interview planning, data analysis, and art-directed landing pages.",
-      "version": "1.3.0",
-      "author": {
-        "name": "Superhero.tech",
-        "email": "superhero@superhero.tech",
-        "url": "https://superhero.tech"
-      },
+      "description": "Product discovery and prototyping workflows: Supersprint with a growing discovery tree, public customer research, affinity mapping, desk research, interview planning, data analysis, concrete experiment design, and art-directed landing pages.",
       "category": "product-management",
       "tags": [
         "discovery",
         "research",
         "customer-interviews",
         "data-analysis",
-        "customer-research",
+        "experiments",
+        "supersprint",
         "landing-page"
-      ]
+      ],
+      "version": "1.4.0",
+      "author": {
+        "name": "Superhero.tech",
+        "email": "superhero@superhero.tech",
+        "url": "https://superhero.tech"
+      }
     }
   ]
 }

@@ -1,59 +1,50 @@
-# Quality Rubric
+# Evidence Quality and Applicability
 
-Applied by sub-agents when scoring findings, and re-checked at synthesis (Stage 4).
+Use the same standards for supportive and contrary evidence. Assess the claim a source can establish separately from how far that claim can travel.
 
-## Synthesis Checks (Stage 4)
+## Read and record
 
-Working format per research question: competitive findings (N, confidence, source), scholar findings (N, confidence, source), confrontation with hypothesis (supports/refutes/mixed), strongest quotes/numbers.
+For each retained study or case, record the original URL, authors/organization, publication and data dates, design, population and sample, task or setting, intervention/version, comparison, outcome, result and material limitations. Note full-text versus abstract-only access. Missing details stay unknown.
 
-Cross-source contradiction patterns to look for - the most valuable synthesis fragments:
-- Case study says "worked" but scholar says "only under condition Y"
-- Multiple firms adopted solution X but scholar shows small effect size
-- Seminal paper supports it but industry moved away
+Prefer original research, source data and documented cases. A snippet, title, adoption announcement or repeated claim is a lead, not verified evidence. Qualitative evidence can answer questions about mechanisms and experience; a number is not required to make it useful. Do not interpret preferences or self-reported gains as measured productivity.
 
-## Confidence Levels
+## Two separate judgments
 
-| Confidence | Criteria |
-|------------|----------|
-| **High** | 3+ independent sources agree; at least one non-vendor; recent (≤5yr competitive, ≤10yr scholar); has effect size or concrete numbers |
-| **Medium** | 2 independent sources, OR 1 strong one (peer-reviewed, well-documented case study with numbers); no red flags |
-| **Low** | Single source; echo-chamber sources; >5yr without confirmation; vendor-only; no numbers |
+**Strength within the study's setting:** examine allocation or comparison design, measurement validity, precision, attrition/selection, transparency and alternative explanations. A well-documented randomized study may provide strong evidence for its own setting even when it is a single study. An observational comparison may be useful but does not by itself identify a causal effect. Peer review and sample size do not replace these checks.
 
-Below Low (hearsay, social media, vendor blog with no data) = doesn't enter the report. Exception: if it illustrates a popular claim the evidence doesn't support, it lives in the disconfirming section.
+**Applicability to the user's question:** compare the population, task, outcome, tool generation, setting and date with the brief. Strong evidence about one short task can be weak evidence about an entire job. A current observational study does not automatically outweigh an older experiment; explain the different strengths and limits.
 
-## Independence
+Use a short reason in reader-facing prose, for example "random assignment supports a time effect for this task; longer-term quality was not measured." Confidence labels can be used in working notes, but are optional and never substitute for that explanation.
 
-Three articles citing the same underlying report = one source, not three. Check:
-- **Author independence** - different research groups
-- **Funding independence** - different sponsors
-- **Citation independence** - not just citing each other in a cluster
+## Freshness in rapidly changing domains
 
-For any High-confidence finding, you must be able to point to 3 distinct clusters.
+For topics such as AI models and coding agents, prioritize the newest relevant primary evidence. Start searches with roughly the last 3-6 months and current tool generations, then broaden when direct evidence is sparse. This is a search heuristic, not an automatic expiry date or a reason to replace a rigorous study with a recent opinion piece. The broad default windows used to discover literature are not a guarantee of present relevance.
 
-## Vendor Sources
+Check publication date, data-collection period, intervention/model version and workflow separately. A newly published paper can report old experiments. Look for the latest paper version, follow-ups and evidence on the current workflow before making a present-tense claim. Results about older autocomplete or chat assistance do not automatically describe newer autonomous coding agents.
 
-Vendor = company with commercial interest in the claim being true. Rules:
-- Flagged `[VENDOR]` in bibliography, not excluded
-- Confidence capped at Low regardless of how many vendors agree
-- If >50% sources in a section are vendor: warn in the report
-- Vendor case study with externally verifiable numbers → upgrade to Medium
+Classify older evidence by its actual use: historical performance, a potentially persistent mechanism, or directly applicable current evidence with an explicit justification. Keep historical findings when useful, but do not let them dominate a conclusion about current tools merely because they have stronger methods or a striking effect. Apply this check equally to positive and negative findings. When current direct evidence is absent, state that limitation prominently; neither assume the old effect persists nor assume technological progress has reversed it.
 
-Industry-funded academic paper (disclosed) → flag `industry_funded`, cap = Medium.
+## Independence and interests
 
-## Recency
+Group publications by underlying study. A preprint, journal version, company post and three news stories about it remain one body of evidence. An update is not an independent replication. Track shared authors, data and funding when claiming convergence.
 
-Competitive default 5 years, scholar 10 years. Seminal papers (100+ citations) have no time limit but must be cited alongside a recent application. Older findings without recent corroboration → cap Medium with flag.
+Disclose supplier authorship, sponsorship and other material commercial interests in the evidence register. Explain their consequence where it matters. Do not automatically label all supplier research weak, or impose a vendor percentage cap on the bibliography. Look for independent corroboration of pivotal claims; when unavailable, state that limitation. Apply the same scrutiny to advocacy and organizational incentives beyond suppliers.
 
-Fast-moving domains (consumer behavior, mobile, social): be stricter. Slow-moving (B2B, regulated): can relax to 7-10yr.
+## Compare effects honestly
 
-## Effect Sizes
+- Keep outcomes and denominators explicit. More completed items is not the same as less time per item or higher value.
+- Do not pool unlike populations, tasks or measures into a general percentage. Do not imply causation from adoption correlations.
+- Keep meaningful uncertainty alongside the estimate. Explain statistical terms if needed rather than listing them as authority signals.
+- A null result can reflect low precision. An unmeasured outcome is a gap, not evidence of harm or benefit.
+- Report negative and positive outcomes in the same study together. Do not split one finding into several apparent replications.
+- Check newer versions, corrections and follow-ups, especially in fast-changing domains. Identify historical tools as historical.
 
-Prefer numbers over qualitative claims. Hierarchy: meta-analysis > RCT/A/B test with effect size > quasi-experimental (before/after) > observational (flag: correlation not causation) > case study without numbers (cap Low) > anecdote (not a finding).
+## Challenge the hypothesis proportionately
 
-If no effect size available, mark: "qualitative finding, no effect size reported."
+Search for null/adverse results, rival explanations and boundary conditions. Include the strongest relevant counterevidence with the same quality and applicability assessment as supportive evidence. Do not lower the standard for a negative result, require a fixed number of objections, or pad a negative section to a length target.
 
-## Edge Cases
+Explain whether a counterexample refutes a universal claim, narrows its scope, questions a mechanism, or leaves the main question unresolved. Absence of counterevidence in a limited scan is not confirmation; publication bias is a possible limitation only when justified, not an automatic explanation.
 
-- **Seminal paper (>10yr, 100+ citations):** Confidence Medium (single source), unless recent replications exist. Always cite alongside a recent paper.
-- **Disconfirming evidence at Low confidence:** Still include it - the disconfirming section intentionally has a lower bar than confirming. Flag the asymmetry.
-- **Conflicting results in one source** (e.g., +15% conversion but +8% returns): Report as one compound finding. Don't cherry-pick.
+## Synthesis checks
+
+Before drafting, be able to answer: what do we know, in which conditions, why should we trust it, what could change it, and what follows for the user's decision? If a difference between studies cannot be explained from their evidence, name the unresolved difference instead of constructing a causal story. Put methods and audit detail in the evidence file, and keep any limitation that changes the answer visible in the report.

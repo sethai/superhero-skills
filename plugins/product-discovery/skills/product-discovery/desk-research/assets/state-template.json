@@ -1,9 +1,9 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "skill": "desk-research",
   "created_at": "",
   "last_updated_at": "",
-  "current_stage": "setup | brief | queries | dispatch | synthesis | report | complete",
+  "current_stage": "setup",
   "project": {
     "name": "",
     "path": "",
@@ -20,12 +20,18 @@
     "working_hypothesis": "",
     "decision_at_stake": "",
     "research_questions": [
-      {"id": 1, "question": "", "auto_decided": false}
+      {
+        "id": 1,
+        "question": "",
+        "auto_decided": false
+      }
     ],
-    "scale": "quick | deep",
+    "scale": "quick",
     "scale_auto_decided": false,
     "disconfirmation_criterion": "",
-    "disconfirmation_skipped": false
+    "disconfirmation_skipped": false,
+    "population_or_setting": "",
+    "conversation_language": ""
   },
   "queries": {
     "competitive": {
@@ -36,7 +42,10 @@
     },
     "scholar": {
       "term_mappings": [
-        {"user_language": "", "academic_language": []}
+        {
+          "user_language": "",
+          "academic_language": []
+        }
       ],
       "search_queries": [],
       "recency_window_years": 10,
@@ -46,36 +55,44 @@
   },
   "dispatch": {
     "competitive_subagent": {
-      "status": "pending | in_progress | complete | failed",
-      "started_at": null,
-      "completed_at": null,
-      "output_path": null,
-      "summary": "",
-      "findings_count": 0,
-      "disconfirming_count": 0
-    },
-    "scholar_subagent": {
-      "status": "pending | in_progress | complete | failed",
+      "status": "pending",
       "started_at": null,
       "completed_at": null,
       "output_path": null,
       "summary": "",
       "findings_count": 0,
       "disconfirming_count": 0,
-      "fallback_to_general_search": false
+      "queries_run": 0,
+      "web_operations": 0
+    },
+    "scholar_subagent": {
+      "status": "pending",
+      "started_at": null,
+      "completed_at": null,
+      "output_path": null,
+      "summary": "",
+      "findings_count": 0,
+      "disconfirming_count": 0,
+      "fallback_to_general_search": false,
+      "queries_run": 0,
+      "web_operations": 0
     }
   },
   "synthesis": {
-    "clusters_per_question": [],
+    "answers_per_question": [],
     "cross_source_contradictions": [],
-    "disconfirming_evidence_count": 0,
-    "synthesis_user_approved": false
+    "conditions_supported": [],
+    "conditions_unresolved": [],
+    "strongest_challenge": "",
+    "decision_implication": ""
   },
   "report": {
     "path": null,
     "disposition": null,
     "tldr_one_liner": "",
-    "completed_at": null
+    "completed_at": null,
+    "evidence_path": null,
+    "word_count": null
   },
   "iterations": []
 }

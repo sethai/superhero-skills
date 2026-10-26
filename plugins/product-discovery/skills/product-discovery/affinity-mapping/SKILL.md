@@ -1,11 +1,6 @@
 ---
 name: affinity-mapping
-description: >-
-  Synthesize user interview transcripts into evidenced themes and Torres-style opportunities,
-  then render an interactive HTML evidence map ready for review and an Opportunity Solution Tree.
-  Use when the user wants affinity mapping, wants to synthesize interviews or notes, needs
-  patterns in transcripts, wants a visual research synthesis, or is preparing opportunities from
-  qualitative research.
+description: Synthesize interview transcripts into evidenced themes and user needs, then render an interactive HTML evidence map. Use when synthesizing interviews, affinity mapping, or preparing opportunities for discovery.
 metadata:
   ready_to_publish: "true"
 ---
@@ -15,6 +10,8 @@ metadata:
 Turn raw user interviews into **structured themes and opportunities** (needs/pains/desires), ready to drop into an Opportunity Solution Tree. Every conclusion stays **evidenced** - it traces back to a verbatim quote and its source. Finish with a self-contained, interactive `affinity/map.html` that makes the evidence trail inspectable.
 
 Respond and produce all artifacts in the user's conversation language.
+
+Before extraction, read `references/writing-quality.md`. Apply it to all agent-authored observations, labels, opportunities, and summaries; preserve source quotes verbatim.
 
 ## Core rule: TWO-STEP synthesis (and why it matters)
 
@@ -56,7 +53,7 @@ Capture observations across the full spectrum: statements, behaviors, emotions, 
 Now work **exclusively** from `affinity/nuggets.md`. The raw transcripts are no longer needed.
 
 1. **Bottom-up, ZERO predefined buckets.** Do not start from a list of categories. Take nuggets and group those that share **meaning** (not keywords - "cost" in two nuggets can mean two different things). Themes must emerge from the data.
-2. **Label a cluster ONLY once it has formed** - as **verb + user problem**, not a keyword topic. Good: "Cannot tell whether an action succeeded". Bad: "Trust" / "Cost".
+2. **Label a cluster ONLY once it has formed** - use a short, natural statement of the shared user behavior or problem, rather than a keyword topic or a fixed grammatical formula. Good: "Cannot tell whether an action succeeded". Bad: "Trust" / "Cost".
 3. **Minimum two passes.** The first structure is a draft - go through it again, merge/split/move. A cluster of 1 nugget is a signal (set it aside), not a theme.
 
 Write to `affinity/themes.md`:
@@ -96,13 +93,15 @@ Final artifact `affinity/opportunities.md` - each opportunity with the full trai
 - For whom / divergence: strong among first-time users; Chris is the opposite (checks a separate report, so he never notices)
 ```
 
+Before presenting the synthesis, run the language and fidelity review in `references/writing-quality.md` on the Markdown artifacts. Resolve wording there before projecting it into JSON and HTML.
+
 At the end, show the user the themes and opportunities and **ask before treating them as final** - naming themes and interpreting them belongs to the human; AI accelerates extraction and clustering, it does not take over judgment. Render the first map with `status: "draft"`; approval changes the status, not the underlying evidence.
 
-The synthesized opportunities are direct input for the ost-builder skill's opportunity gate - when the user wants a full Opportunity Solution Tree, suggest running ost-builder next.
+The synthesized opportunities can feed the included `supersprint` skill for a full discovery cycle and growing tree. If an `ost-builder` skill is separately available and the user specifically wants a Teresa Torres Opportunity Solution Tree, it can also use these opportunities; do not require that optional skill.
 
 ## Phase 5 - Interactive evidence map (required)
 
-Read `references/map-data.md`. Build `affinity/map.json` strictly from `nuggets.md`, `themes.md`, and `opportunities.md`; this phase reformats the synthesis and must not reinterpret it.
+Read `references/map-data.md` and `references/html-style.md`; use the packaged default HTML style. Build `affinity/map.json` strictly from `nuggets.md`, `themes.md`, and `opportunities.md`; this phase reformats the synthesis and must not reinterpret it.
 
 The map must make four relationships visible:
 
@@ -127,7 +126,7 @@ Treat these as the complete output set:
 
 After rendering:
 
-1. Open or present `affinity/map.html` when the current environment supports HTML previews.
+1. Open `affinity/map.html` in the host app's built-in/in-app browser first, following the preview order in `references/map-data.md`; Chrome or another external browser is a fallback, not the default.
 2. Verify that selecting at least one nugget updates its quote, source, theme, and linked opportunity.
 3. Check the layout at desktop and narrow/mobile width; fix clipping or horizontal page overflow.
 4. Report links to all five artifacts. Label the map as a draft until the user approves the synthesis.
@@ -137,7 +136,7 @@ After rendering:
 - Process transcripts one at a time - Phase 1 reads one and writes to disk before touching the next.
 - Treat quotes as copies from the source - never invented, never a paraphrase presented as verbatim.
 - Let labels emerge after clustering - start with zero predefined categories.
-- Name clusters as user problems (verb phrases), not features or keywords.
+- Name clusters as natural statements of shared user behavior or problems, not features or keywords.
 - Keep opportunities separate from solutions - if there is only one way to address it, dig deeper.
 - Keep divergence visible - resist trading it away for a neat, coherent story.
 - Never introduce or rewrite evidence while producing JSON or HTML - visualization is a projection, not a new synthesis pass.
