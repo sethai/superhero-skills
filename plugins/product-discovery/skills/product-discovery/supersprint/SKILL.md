@@ -15,7 +15,7 @@ Use natural, descriptive names throughout the tree. Titles and previews should s
 
 ## Intake and resume
 
-Read `references/intake-and-routing.md` first. Minimum input is product context and a problem, direction or decision to investigate; a short conversation brief is sufficient. An existing outcome, metrics, transcripts and completed research are optional inputs, not an admission checklist.
+Read `references/intake-and-routing.md` and `references/human-checkpoints.md` first. Identify the product with the human before analysis; ask about a missing outcome and wait for the answer, including an explicit "not known yet". A supplied brief or current answer can establish this context without repetition. Persist the product and context on the Canvas/tree even before a goal exists.
 
 Resolve the product folder and cycle from the conversation or workspace. Ask only if ambiguity materially changes the destination or work. Read project instructions, brief, entry point, current state and active-stage artifacts before raw files. Reuse accepted choices. Resume the actual waiting point instead of replaying all stages.
 
@@ -25,7 +25,7 @@ The router owns the cycle state and material decision history. Specialists own t
 
 ## Progress through the cycle
 
-1. **Goal:** identify whose behavior should change, how it relates to a business priority and how it could be measured. Reuse a suitable brief outcome. If missing, help define it; when evidence is insufficient, keep an explicit working direction or research question. Unknown baseline, target or deadline stays unknown. A measurement window is not a delivery deadline.
+1. **Goal:** identify whose behavior should change, how it relates to a business priority and how it could be measured. Reuse a suitable brief outcome. If missing, first ask the human what outcome they want and wait; help define a working goal after their response. When evidence is insufficient, keep an explicit working direction or research question for review. Unknown baseline, target or deadline stays unknown. A measurement window is not a delivery deadline.
 2. **Signals:** distinguish available inputs, completed analysis and enough evidence for the next decision. Reuse current relevant analyses. Name gaps, contradictions, source versions and limits. Missing signal categories do not require filling every folder. Suggest the smallest research that can change the decision; allow consciously proceeding with stated uncertainty.
 3. **Opportunities:** formulate user needs/problems in natural user language. Compare importance, plausible goal contribution and evidence. Recommend a focus; record the user's selection or existing delegation. Keep alternatives and rationale. A need is not a proposed feature.
 4. **Ideas:** compare distinct approaches by fit, potential and constraints. Describe the concrete mechanism. Keep user-selected ideas; do not impose a fixed number or reopen an accepted gate without a material reason.
@@ -33,7 +33,13 @@ The router owns the cycle state and material decision history. Specialists own t
 6. **Results:** register actual observations, scope, execution and review status. A plan, role-play or synthetic case is not customer evidence. Read results in the context of what the method tests; clicks, use, payment and repeat purchase answer different questions.
 7. **Decision:** record develop, revise, discard or research further, with supporting evidence, uncertainty, next action and owner. A cycle ends with a supported decision, not necessarily a build. Keep production implementation as a subsequent scoped task.
 
-Ask one consequential question at a time when a choice is needed. Previously authorized work and delegated choices do not need repeated approval. Preserve specialist review gates where applicable; presenting proposals or opening a diagram does not accept them.
+## Human checkpoints
+
+At every stage follow `references/human-checkpoints.md`: ask for the human's input and wait, prepare the stage after their reply, show the saved draft and updated tree, then ask for review and wait. Corrections lead to a revised draft and another review. Advance only after approval of that revision, then invite input for the next stage. Existing files or a request to run the whole cycle do not waive these checkpoints.
+
+Persist the exact waiting point, input provenance and reviewed revision in `human_gates`. Resume there without replaying accepted unchanged stages. Ask one consequential question at a time; specialist review can satisfy the matching checkpoint. Only explicit, scoped user delegation can waive a checkpoint, and it must be recorded as delegation rather than human approval.
+
+Save `context/product.md` and `state.product_context` as soon as the human identifies the product. Keep product, users and outcome/unknown visible above the tree. Update the same native Canvas when the host supports the intended surface; otherwise use the local context document and HTML and state that fallback honestly.
 
 ## Specialist routing
 
@@ -54,7 +60,7 @@ If a specialist is unavailable, report the missing capability and choose a feasi
 
 Read `references/progressive-tree.md` before the first tree update. After a meaningful new proposal, analysis finding, selection, test plan or supplied result, and at every stage transition:
 
-1. Save the stage narrative and state, maintaining stable IDs, source references, review and selection status. Record what materially changed and why.
+1. Save the stage narrative, product context and state, maintaining stable IDs, source references, checkpoint/review and selection status. Record what materially changed and why. A draft tree update does not accept the stage.
 2. Project only existing work into the tree. Save/refresh the same `tree/tree.html` and `tree/tree.mmd`; snapshot significant structural changes with the state. Do not prefill future branches.
 3. Show the updated tree to the user now, using the host's visible built-in browser and reusing its tab when supported. Say briefly what was added or changed and the current next step. Do not wait for the full cycle to finish.
 

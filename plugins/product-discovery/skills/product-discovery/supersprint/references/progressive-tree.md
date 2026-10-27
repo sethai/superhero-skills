@@ -2,6 +2,12 @@
 
 The tree is the visible working memory of the cycle. Update it during the conversation and show it after material work, not only at completion. Preserve the same artifact path and browser tab where possible.
 
+## Persistent product Canvas and checkpoints
+
+Follow `references/human-checkpoints.md`. Above the graph, always show the product name, a short description, intended users, the current goal or an explicit unknown, and the active human checkpoint. Display this block even for a zero-node tree. Read it from the cycle's state and `context/product.md`, not a hidden personal context source. Show proposals as proposals; the product context does not create a new tree layer. Mirror it to the intended native Canvas only when that surface is writable through supported capabilities.
+
+Refreshing the Canvas/tree never accepts a stage. A proposed stage stays `awaiting_review` until the human approves its exact revision. Keep the input and review checkpoints distinct and preserve the current waiting point on resume.
+
 ## What appears when
 
 | Work completed | Visible update |
@@ -74,3 +80,5 @@ The main axis starts with the goal. Signals sit below it, attached as evidence. 
 ## Boundaries
 
 Do not prefill later stages or simulate user/customer results. A source quote supports a rationale, not proof that a proposed solution works. Preserve provisional goals, pending synthesis reviews, unstarted experiments and missing results visibly. Board synchronization remains optional and capability-dependent.
+
+For other interface languages, also localize the product-context and checkpoint labels from the bundled renderer UI through `tree_ui`.

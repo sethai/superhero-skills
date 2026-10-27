@@ -9,6 +9,9 @@ UI={
  'en':dict(zoom_controls='Tree scale',zoom_out='Zoom out',zoom_in='Zoom in',zoom_scale='Scale',zoom_reset='100%',zoom_fit='Fit entire tree',title='Supersprint',stage='Stage',opportunities='Opportunities',ideas='Ideas',experiments='Experiments',results='Results',signals='Supporting signals',empty='No tree nodes yet. Define the direction first.',source='Full description and sources',close='Close',selected='Selected path',recommended='Recommendation',details='Details',goal='Goal',opportunity='Opportunities',idea='Ideas',experiment='Experiments',result='Observed results',decision='Decision',signal='Signals',hypothesis='Hypothesis',method='How we test',measure='What we measure',draft='Proposed',proposed='Proposed',provisional='Working goal',selected_status='Selected',alternative='Alternative',pending='Pending review',accepted='Accepted',conditional='Conditional test',hint='Scroll to explore the tree. Click a card for a brief preview.'),
  'pl':dict(zoom_controls='Skala drzewa',zoom_out='Oddal drzewo',zoom_in='Powiększ drzewo',zoom_scale='Skala',zoom_reset='100%',zoom_fit='Dopasuj całe drzewo',title='Supersprint',stage='Etap',opportunities='Szanse',ideas='Pomysły',experiments='Eksperymenty',results='Wyniki',signals='Sygnały wspierające',empty='Nie ma jeszcze węzłów drzewa. Najpierw ustalmy kierunek.',source='Pełny opis i źródła',close='Zamknij',selected='Wybrana ścieżka',recommended='Rekomendacja',details='Podgląd',goal='Cel',opportunity='Szanse',idea='Pomysły',experiment='Eksperymenty',result='Zaobserwowane wyniki',decision='Decyzja',signal='Sygnały',hypothesis='Hipoteza',method='Jak sprawdzimy',measure='Co mierzymy',draft='Propozycja',proposed='Propozycja',provisional='Cel roboczy',selected_status='Wybrane',alternative='Alternatywa',pending='Do przeglądu',accepted='Przyjęte',conditional='Test warunkowy',hint='Przewiń, aby obejrzeć drzewo. Kliknij kartę, aby zobaczyć krótki podgląd.')}
 
+UI['en'].update(product_context='Product and outcome',product='Product',description='What it does',audience='For whom',outcome='Outcome',requested_outcome='Human input; goal still to review',unknown_product='Waiting for the product context',unknown_outcome='Outcome not defined yet',unknown_context='Not specified yet',context_source='Product context and sources',checkpoint_awaiting_product='Waiting for your product context',checkpoint_awaiting_outcome='Waiting for your outcome input',checkpoint_awaiting_input='Waiting for your stage input',checkpoint_drafting='Preparing this stage for review',checkpoint_awaiting_review='Waiting for your review',checkpoint_accepted='Stage accepted',checkpoint_not_started='Stage not started')
+UI['pl'].update(product_context='Produkt i cel',product='Produkt',description='Co robi',audience='Dla kogo',outcome='Outcome',requested_outcome='Wsad człowieka; cel czeka na przegląd',unknown_product='Czekamy na kontekst produktu',unknown_outcome='Outcome nie został jeszcze określony',unknown_context='Jeszcze nie określono',context_source='Kontekst produktu i źródła',checkpoint_awaiting_product='Czekamy na Twój opis produktu',checkpoint_awaiting_outcome='Czekamy na Twój outcome',checkpoint_awaiting_input='Czekamy na Twój wsad do etapu',checkpoint_drafting='Przygotowujemy etap do przeglądu',checkpoint_awaiting_review='Czekamy na Twoje sprawdzenie',checkpoint_accepted='Etap zaakceptowany',checkpoint_not_started='Etap nierozpoczęty')
+
 def esc(value):return html.escape(str(value),quote=True)
 def dump(value):return json.dumps(value,ensure_ascii=False,indent=2)+'\n'
 def json_safe(value):return json.dumps(value,ensure_ascii=False).replace('&','\\u0026').replace('<','\\u003c').replace('>','\\u003e')
@@ -19,9 +22,59 @@ def source_link(raw,cycle,output):
  scheme=urlsplit(raw).scheme.lower()
  if scheme in ['http','https']:return raw
  if scheme or raw.startswith('//'):return None
- return os.path.relpath((cycle/raw).resolve(),output.parent)
+ return os.path.relpath((cycle/raw).resolve(),output.parent.resolve())
+
+STAGES=['goal','signals','opportunities','ideas','experiments','results','decision']
+
+def validate_gates(state):
+ gates=state.get('human_gates')
+ if gates is None:return
+ if not isinstance(gates,dict) or gates.get('mode')!='interactive':raise ValueError('Invalid human_gates mode')
+ records=gates.get('stages',{});current=state.get('current_stage')
+ if current not in STAGES or any(name not in records for name in STAGES):raise ValueError('Missing human stage checkpoint')
+ statuses={'not_started','awaiting_input','drafting','awaiting_review','accepted'}
+ def has_response(record):
+  refs=record.get('source_refs')
+  return isinstance(record.get('response'),str) and bool(record['response'].strip()) and isinstance(refs,list) and bool(refs) and all(isinstance(r,str) and r.strip() for r in refs)
+ for i,name in enumerate(STAGES):
+  record=records[name];status=record.get('status')
+  if status not in statuses:raise ValueError('Invalid checkpoint status: '+name)
+  if name==current and status=='not_started':raise ValueError('Current stage must name its waiting point')
+  if status in {'drafting','awaiting_review','accepted'}:
+   if any(records[earlier].get('status')!='accepted' for earlier in STAGES[:i]):raise ValueError('Accept the previous stage review before proceeding: '+name)
+   if not has_response(record.get('input',{})):raise ValueError('Record the human stage input and its source before drafting: '+name)
+   intake=state.get('intake',{})
+   context=state.get('product_context',{})
+   if not state.get('product') or not intake.get('product_confirmed') or not context.get('description') or not isinstance(intake.get('outcome_response'),str) or not intake['outcome_response'].strip():raise ValueError('Ask about the product context and outcome before drafting')
+  if status in {'awaiting_review','accepted'}:
+   draft=record.get('draft',{});revision=draft.get('revision')
+   if not isinstance(revision,int) or isinstance(revision,bool) or revision<1 or not draft.get('artifact_path'):raise ValueError('Record the displayed stage draft revision and artifact: '+name)
+  if status=='accepted':
+   review=record.get('review',{})
+   if not has_response(review) or review.get('reviewed_revision')!=record['draft']['revision']:raise ValueError('Human review must match the displayed draft revision: '+name)
+   if review.get('decision')=='delegated':
+    delegation=next((d for d in gates.get('delegations',[]) if d.get('id')==review.get('delegation_id')),None)
+    if not delegation or name not in delegation.get('stages',[]) or not delegation.get('review_gate') or not has_response(delegation):raise ValueError('Record explicit scoped delegation instead of inventing approval: '+name)
+   elif review.get('decision')!='approved':raise ValueError('An accepted stage needs explicit approval: '+name)
+ active=STAGES.index(current)
+ if any(records[name].get('status')!='accepted' for name in STAGES[:active]):raise ValueError('Cannot advance past an unresolved human review')
+
+def project_context(state,nodes,ui,cycle,output):
+ context=state.get('product_context') or {}
+ raw=state.get('product');product=raw.get('name') if isinstance(raw,dict) else raw
+ product=product if isinstance(product,str) and product.strip() else ui['unknown_product']
+ goals=[n for n in nodes if n['type']=='goal']
+ requested=(state.get('intake') or {}).get('outcome_response')
+ outcome='; '.join(n['title']+' ('+n['status_label']+')' for n in goals) if goals else (ui['requested_outcome']+': '+requested if isinstance(requested,str) and requested.strip() else ui['unknown_outcome'])
+ status=(state.get('human_gates') or {}).get('stages',{}).get(state.get('current_stage'),{}).get('status')
+ intake=state.get('intake')
+ if intake is not None:
+  if not intake.get('product_confirmed'):status='awaiting_product'
+  elif not intake.get('outcome_response'):status='awaiting_outcome'
+ return dict(product=product,description=context.get('description') or ui['unknown_context'],audience=context.get('audience') or ui['unknown_context'],outcome=outcome,review=ui.get(context.get('review_status','pending'),context.get('review_status','pending')),link=source_link(context.get('artifact_path'),cycle,output) if state.get('product') else None,checkpoint=ui.get('checkpoint_'+str(status),'') if status else '')
 
 def normalize(state,graph,cycle,output):
+ validate_gates(state)
  data=copy.deepcopy(graph);lang=str(state.get('language',graph.get('language','en'))).split('-')[0]
  ui={**UI.get(lang,UI['en']),**state.get('tree_ui',{}),**graph.get('tree_ui',{})}
  raw_nodes=data.get('nodes',[]);raw_edges=data.get('edges',[])
@@ -59,9 +112,10 @@ def normalize(state,graph,cycle,output):
  for e in raw_edges:
   e=copy.deepcopy(e);e['evidence']='evidence' in e.get('type','') or 'reference' in e.get('type','') or by_id[e['source']]['type']=='signal' or e.get('type')=='baseline_source'
   e['on_path']=not e['evidence'] and by_id[e['source']]['on_path'] and by_id[e['target']]['on_path'];edges.append(e)
- return dict(language=lang,ui=ui,nodes=nodes,edges=edges,stage=state.get('current_stage',''),question=state.get('working_question') or state.get('context',{}).get('working_question') or '',revision=state.get('tree',{}).get('revision',1))
+ return dict(language=lang,ui=ui,nodes=nodes,edges=edges,stage=state.get('current_stage',''),question=state.get('working_question') or state.get('context',{}).get('working_question') or '',revision=state.get('tree',{}).get('revision',1),project_context=project_context(state,nodes,ui,cycle,output))
 
 LAYOUT='''
+.project-context{padding:20px 24px;margin-bottom:20px;border:1px solid var(--line);border-radius:16px;background:white}.project-context h2{font-size:24px;margin:0 0 12px}.project-context .context-header{display:flex;justify-content:space-between;align-items:center;gap:16px}.project-context dl{display:grid;grid-template-columns:1fr 1fr 2fr;gap:20px;margin:16px 0}.project-context dt{font-size:12px;color:var(--quiet);margin-bottom:6px}.project-context dd{font-size:14px;color:var(--muted);margin:0;white-space:pre-line}.checkpoint{font-size:13px;color:var(--ink);margin:12px 0 0}.project-context a{font-size:13px}@media(max-width:700px){.project-context dl{grid-template-columns:1fr}.project-context .context-header{align-items:flex-start;flex-direction:column}}
 .shell{max-width:1800px;margin:auto;padding:24px}.heading{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:20px}.heading p{color:var(--muted);max-width:850px}.board{position:relative;border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:auto;padding:40px;height:72vh;min-height:360px}.canvas{position:relative}.view-controls{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:0 0 14px}.view-controls button{min-width:40px;min-height:36px;padding:6px 14px;border-radius:8px}.view-controls label{font-size:12px;color:var(--muted);margin-left:8px}.view-controls input{width:150px;accent-color:var(--ink)}.view-controls output{font-variant-numeric:tabular-nums;font-size:12px;min-width:42px;text-align:center}.view-controls button:disabled{opacity:.35;cursor:default}.world{position:absolute;left:0;top:0;width:max-content;min-width:0;transform-origin:0 0}.axis{position:relative;z-index:1}.lane{position:absolute;top:0;width:280px}.lane h2{position:absolute;top:0;left:0;width:280px;margin:0;font-size:12px;line-height:18px;color:var(--muted)}.stack{display:block}.stack .node{position:absolute;left:0}.node{display:block;width:280px;min-height:155px;padding:18px;border-radius:16px;text-align:left;font-size:13px;background:white}.node.selected-path{padding:16px;border:3px solid var(--ink)}.node.recommended{padding:17px;border:2px dashed var(--muted)}.node.selected-path.recommended{border:3px solid var(--ink);padding:16px}.node:focus-visible{outline-offset:5px}.node h3{font-size:14px;font-weight:500;margin:12px 0 8px}.node p{font-size:13px;color:var(--muted);margin-bottom:0}.node .meta{display:flex;align-items:center;justify-content:space-between;color:var(--quiet);font-size:12px}.node .status-line{display:block;margin-top:14px;color:var(--muted);font-size:12px}.signals{position:relative;z-index:1;margin-top:96px;padding-top:32px;border-top:1px solid var(--line)}.signal-list{display:flex;flex-wrap:wrap;gap:36px}.connections{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}.edge{fill:none;stroke:#C9C9C9;stroke-width:1.2}.edge.evidence{stroke-dasharray:4 5}.edge.on-path{stroke:var(--ink);stroke-width:3}.edge.inspected-edge{stroke:#2563EB;stroke-width:3.5;vector-effect:non-scaling-stroke}.inspected{box-shadow:0 0 0 4px #2563EB24}.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:16px 0}.legend span{display:inline-flex;gap:8px;align-items:center}.swatch{width:12px;height:12px;border:2px solid var(--ink);border-radius:3px}.swatch.recommendation{border:1px dashed var(--muted)}.detail{position:fixed;right:24px;top:24px;width:420px;max-width:calc(100vw - 48px);max-height:calc(100vh - 48px);overflow:auto;padding:24px;background:white;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);z-index:5}.detail[hidden]{display:none}.detail-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;color:var(--quiet);font-size:12px}.detail h2{font-size:24px}.detail p{font-size:14px;color:var(--muted)}.detail h3{font-size:13px;margin-top:18px}.empty{padding:24px;color:var(--muted)}.hint{font-size:12px;color:var(--quiet)}@media(max-width:700px){.shell{padding:16px}.heading{align-items:flex-start;flex-direction:column;gap:8px}.board{padding:20px}.detail{top:auto;bottom:12px;left:12px;right:12px;max-width:none;width:auto;max-height:65vh}}@media print{.view-controls{display:none}.board{height:auto;min-height:0;max-height:none;overflow:visible}.canvas{width:auto!important;height:auto!important}.world{position:relative;transform:none!important}.detail{display:none}.world{min-width:0}.node{break-inside:avoid}.hint{display:none}}
 '''
 JS='''
@@ -109,7 +163,11 @@ document.getElementById('close').addEventListener('click',close);addEventListene
 '''
 
 def render(data,css):
- ui=data['ui']
+ ui=data['ui'];context=data['project_context']
+ context_fields=''.join(f'<div><dt>{esc(ui[key])}</dt><dd>{esc(context[key])}</dd></div>' for key in ['description','audience','outcome'])
+ context_link=f'<a href="{esc(context["link"])}">{esc(ui["context_source"])}</a>' if context['link'] else ''
+ checkpoint=f'<p class="checkpoint" role="status">{esc(context["checkpoint"])}</p>' if context['checkpoint'] else ''
+ context_html=f'<section class="project-context" id="project-context" aria-label="{esc(ui["product_context"])}"><div class="context-header"><h2>{esc(ui["product"])}: {esc(context["product"])}</h2><span class="status">{esc(context["review"])}</span></div><dl>{context_fields}</dl>{context_link}{checkpoint}</section>'
  def card(n):
   summary=n['summary'] or n.get('card',{}).get('hypothesis','')
   kind='selected-path' if n['on_path'] else ''
@@ -123,11 +181,14 @@ def render(data,css):
   if items:columns.append(f'<section class="lane"><h2>{esc(ui[kind])}</h2><div class="stack">'+''.join(card(n) for n in items)+'</div></section>')
  signals=[n for n in data['nodes'] if n['type']=='signal'];signal_html=f'<section class="signals"><h2>{esc(ui["signals"])}</h2><div class="signal-list">'+''.join(card(n) for n in signals)+'</div></section>' if signals else ''
  empty=f'<p class="empty">{esc(ui["empty"])}</p>' if not data['nodes'] else ''
- return f'''<!doctype html><html lang="{esc(data['language'])}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(ui['title'])}</title><style>{css}\n{LAYOUT}</style></head><body><main class="shell"><header class="heading"><div><h1>{esc(ui['title'])}</h1><p>{esc(data['question'])}</p></div><span class="status">{esc(ui['stage'])}: {esc(ui.get(data['stage'],data['stage']))} · r{data['revision']}</span></header><div class="view-controls" role="group" aria-label="{esc(ui['zoom_controls'])}"><button id="view-out" type="button" aria-label="{esc(ui['zoom_out'])}">−</button><label for="view-scale">{esc(ui['zoom_scale'])}</label><input id="view-scale" type="range" min="20" max="150" step="1" value="100"><output id="view-scale-value" for="view-scale" aria-live="polite">100%</output><button id="view-in" type="button" aria-label="{esc(ui['zoom_in'])}">+</button><button id="view-reset" type="button">{esc(ui['zoom_reset'])}</button><button id="view-fit" type="button">{esc(ui['zoom_fit'])}</button></div><div class="board" id="board"><div class="canvas" id="canvas"><div class="world" id="world"><svg id="connections" class="connections" aria-hidden="true"></svg><div class="axis" id="axis">{''.join(columns)}</div>{signal_html}{empty}</div></div></div><div class="legend"><span><i class="swatch"></i>{esc(ui['selected'])}</span><span><i class="swatch recommendation"></i>{esc(ui['recommended'])}</span></div><p class="hint">{esc(ui['hint'])}</p></main><aside class="detail" id="detail" aria-labelledby="detail-title" hidden><div class="detail-head"><span id="detail-kind"></span><button id="close" type="button">{esc(ui['close'])}</button></div><h2 id="detail-title"></h2><div id="detail-copy"></div><a id="detail-source" class="cta">{esc(ui['source'])}</a></aside><script type="application/json" id="tree-data">{json_safe(data)}</script><script>{JS}</script></body></html>'''
+ return f'''<!doctype html><html lang="{esc(data['language'])}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(ui['title'])}</title><style>{css}\n{LAYOUT}</style></head><body><main class="shell"><header class="heading"><div><h1>{esc(ui['title'])}</h1><p>{esc(data['question'])}</p></div><span class="status">{esc(ui['stage'])}: {esc(ui.get(data['stage'],data['stage']))} · r{data['revision']}</span></header>{context_html}<div class="view-controls" role="group" aria-label="{esc(ui['zoom_controls'])}"><button id="view-out" type="button" aria-label="{esc(ui['zoom_out'])}">−</button><label for="view-scale">{esc(ui['zoom_scale'])}</label><input id="view-scale" type="range" min="20" max="150" step="1" value="100"><output id="view-scale-value" for="view-scale" aria-live="polite">100%</output><button id="view-in" type="button" aria-label="{esc(ui['zoom_in'])}">+</button><button id="view-reset" type="button">{esc(ui['zoom_reset'])}</button><button id="view-fit" type="button">{esc(ui['zoom_fit'])}</button></div><div class="board" id="board"><div class="canvas" id="canvas"><div class="world" id="world"><svg id="connections" class="connections" aria-hidden="true"></svg><div class="axis" id="axis">{''.join(columns)}</div>{signal_html}{empty}</div></div></div><div class="legend"><span><i class="swatch"></i>{esc(ui['selected'])}</span><span><i class="swatch recommendation"></i>{esc(ui['recommended'])}</span></div><p class="hint">{esc(ui['hint'])}</p></main><aside class="detail" id="detail" aria-labelledby="detail-title" hidden><div class="detail-head"><span id="detail-kind"></span><button id="close" type="button">{esc(ui['close'])}</button></div><h2 id="detail-title"></h2><div id="detail-copy"></div><a id="detail-source" class="cta">{esc(ui['source'])}</a></aside><script type="application/json" id="tree-data">{json_safe(data)}</script><script>{JS}</script></body></html>'''
 
 def mermaid(data):
  ids={n['id']:'n'+str(i) for i,n in enumerate(data['nodes'])}
  lines=['graph LR','  %% Only existing nodes; hypotheses are inside experiments.']
+ context=data['project_context']
+ for key in ['product','description','audience','outcome']:
+  lines.append('  %% '+key+': '+str(context[key]).replace('\r',' ').replace('\n',' '))
  for n in data['nodes']:
   text=esc(n['title']).replace('"','#quot;').replace('\n',' ')
   lines.append(f'  {ids[n["id"]]}["{esc(n["id"])}<br/>{text}<br/>{esc(n["status_label"])}"]')

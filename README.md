@@ -68,13 +68,13 @@ These skills help you understand customers, examine product and market evidence,
 
 #### Supersprint: from signals to a decision
 
-`supersprint` guides the process using the discovery skills above. Start with a product and a problem or decision to investigate. Briefs, CSV files, transcripts and previous research are optional inputs. If the outcome is missing, the skill helps establish a working goal.
+`supersprint` guides the process using the discovery skills above. It first establishes the product with you and asks about a missing outcome before doing analysis. "Not known yet" is a valid answer: the skill helps draft a working goal for your review. Briefs, CSV files, transcripts and previous research are optional inputs.
 
 ```text
 Goal -> Signals -> Opportunities -> Ideas -> Experiments -> Observed results -> Decisions
 ```
 
-The tree grows as you work, with an HTML view, a Mermaid export, highlighted selections and links to evidence.
+The tree grows as you work, with an HTML view, a Mermaid export, highlighted selections and links to evidence. Product context and the current outcome stay visible above the tree, even before any branches exist. The context is saved in the project and mirrored to a native Canvas when the host supports that working surface.
 
 Each branch is centered on its own parent, with room between cards and zoom controls from 20% to 150%, reset and fit-entire-tree. Clicking a card highlights its connections; dotted lines from supporting signals appear only when you inspect the card they support.
 
@@ -82,7 +82,7 @@ Titles and previews explain the actual person, situation and proposed change in 
 
 Each cycle saves its documents, decisions and state under `supersprint/<cycle>/` in your project, so you can resume later. No personal knowledge vault or external board is required.
 
-You choose the focus and next experiment unless you delegate those choices. Tests state a hypothesis, practical method and expected observable change; you judge what counts as success. Plans and actual results stay separate.
+Before each stage, Supersprint asks what you want to add and waits for your reply. It then prepares the stage, shows the draft and updated tree, and waits for your review before moving on. Corrections return to the draft; a later conversation resumes the saved checkpoint. Explicit delegation can change this default. Tests state a hypothesis, practical method and expected observable change; you judge what counts as success. Plans and actual results stay separate.
 
 > Start a Supersprint for this product. Investigate why customers do not return, using the attached brief, CSV files and transcripts.
 
@@ -153,7 +153,7 @@ codex plugin marketplace add superhero-tech/superhero-skills
 codex plugin add product-discovery@superhero-skills
 ```
 
-Start a new Codex session after installation. Version `1.5.0` adds clearer discovery descriptions and an interactive Supersprint tree; check that your installed plugin has updated to this version or later to use these improvements. You can also open `/plugins` to browse the `Superhero Skills` marketplace.
+Start a new Codex session after installation. Version `1.6.0` adds human input and review checkpoints at every Supersprint stage, with persistent product context above the discovery tree; check that your installed plugin has updated to this version or later to use these improvements. You can also open `/plugins` to browse the `Superhero Skills` marketplace.
 
 Invoke a skill explicitly, for example:
 

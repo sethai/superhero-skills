@@ -4,6 +4,8 @@
 
 The user identifies a product/service or product idea and a problem, direction or decision worth investigating. Accept a short message, a brief file, a project folder or existing discovery state. Infer what is available from the conversation and accessible project context; do not require a completed intake form.
 
+Follow `references/human-checkpoints.md` for startup questions, the persistent product Canvas and the input/draft/review loop. A missing product context requires a human answer before analysis; a missing outcome requires asking and waiting, even when data files are available.
+
 A named folder is a destination, not evidence. A brief is one possible source, not a required file format. If the context is too vague to name any useful next question, ask one focused question about the user, problem or business priority. Do not invent a product objective to populate the tree.
 
 | Available input | How to use it |
@@ -17,7 +19,7 @@ A named folder is a destination, not evidence. A brief is one possible source, n
 | Selected opportunity or ideas, test plans/results | Resume at that stage with its supporting context; do not restart earlier choices |
 | Existing cycle state and tree | Recover the actual stage, pending reviews, sources and last visible revision |
 
-No outcome in a brief is normal: formulate a provisional goal with the user, or review targeted early signals to establish a direction. Missing CSVs, interviews, a target value or deadline does not by itself block starting. It may limit which next decision is justified. Do not produce unsupported opportunity claims or pretend that absent sources were analyzed.
+No outcome in a brief is normal: first ask the user which outcome they want. If they do not know, record that answer and formulate a provisional goal or propose targeted early research for review; do not silently skip the startup question. Missing CSVs, interviews, a target value or deadline does not by itself block starting. It may limit which next decision is justified. Do not produce unsupported opportunity claims or pretend that absent sources were analyzed.
 
 ## Workspace
 
