@@ -58,6 +58,7 @@ These skills help you understand customers, examine product and market evidence,
 
 | Skill | What it does |
 |---|---|
+| `supersentence` | Clarifies a business idea through a compact interview and market research, ending with a super sentence, an evidence-based verdict and a next test. |
 | `supersprint` | Guides a discovery cycle with the included specialists, saved decisions and a growing HTML/Mermaid tree. |
 | `experiment-design` | Turns selected ideas into concrete prototypes, demand tests or commitment tests, with hypotheses and observable changes. |
 | `customer-research` | Finds public customer opinions and delivers a short report, sourced CSV, and HTML with grouped quotes and mention counts. |
@@ -134,6 +135,7 @@ If Claude Code asks you to reload the plugin, run `/reload-plugins` or start a n
 Invoke a skill explicitly, for example:
 
 ```text
+/product-discovery:supersentence
 /product-discovery:supersprint
 /product-discovery:experiment-design
 /product-discovery:customer-research
@@ -153,11 +155,12 @@ codex plugin marketplace add superhero-tech/superhero-skills
 codex plugin add product-discovery@superhero-skills
 ```
 
-Start a new Codex session after installation. Version `1.6.0` adds human input and review checkpoints at every Supersprint stage, with persistent product context above the discovery tree; check that your installed plugin has updated to this version or later to use these improvements. You can also open `/plugins` to browse the `Superhero Skills` marketplace.
+Start a new Codex session after installation. Version `1.7.0` adds `supersentence` for clarifying business ideas through an interview and market research; check that your installed plugin has updated to this version or later to use it. You can also open `/plugins` to browse the `Superhero Skills` marketplace.
 
 Invoke a skill explicitly, for example:
 
 ```text
+$product-discovery:supersentence
 $product-discovery:supersprint
 $product-discovery:experiment-design
 $product-discovery:customer-research

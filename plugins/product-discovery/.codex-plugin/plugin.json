@@ -1,7 +1,7 @@
 {
   "name": "product-discovery",
-  "version": "1.6.0",
-  "description": "Product discovery and prototyping workflows: Supersprint with a growing discovery tree, public customer research, affinity mapping, desk research, interview planning, data analysis, concrete experiment design, and art-directed landing pages.",
+  "version": "1.7.0",
+  "description": "Product discovery and prototyping workflows: Supersentence for business ideas, Supersprint with a growing discovery tree, customer research, affinity mapping, desk research, interview planning, data analysis, experiment design, and art-directed landing pages.",
   "author": {
     "name": "Superhero.tech",
     "email": "superhero@superhero.tech",
@@ -19,7 +19,8 @@
     "customer-research",
     "experiments",
     "supersprint",
-    "landing-page"
+    "landing-page",
+    "supersentence"
   ],
   "skills": [
     "./skills/product-discovery/",
@@ -28,7 +29,7 @@
   "interface": {
     "displayName": "Superhero Skills",
     "shortDescription": "Product Discovery and Design",
-    "longDescription": "Superhero Skills combines discovery and design in one plugin. Supersprint guides a saved discovery cycle with a growing HTML/Mermaid tree, using the included public customer research, affinity mapping, desk research, interview planning, data analysis and experiment-design skills. Product Design builds distinctive landing pages through a guided brief, independent art direction and visual iteration.",
+    "longDescription": "Supersentence helps clarify a business idea through a compact interview and market research, ending with a super sentence, an honest verdict and a next test. Superhero Skills combines discovery and design in one plugin. Supersprint guides a saved discovery cycle with a growing HTML/Mermaid tree, using the included public customer research, affinity mapping, desk research, interview planning, data analysis and experiment-design skills. Product Design builds distinctive landing pages through a guided brief, independent art direction and visual iteration.",
     "developerName": "Superhero.tech",
     "category": "Productivity",
     "capabilities": [
@@ -38,6 +39,7 @@
     ],
     "websiteURL": "https://superhero.tech",
     "defaultPrompt": [
+      "Help me find and clarify a business idea that fits my experience and constraints.",
       "Research this product decision and challenge my assumptions.",
       "Synthesize these interview transcripts with affinity mapping.",
       "Build a distinctive landing page with a guided brief and independent art direction."
