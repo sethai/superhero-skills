@@ -65,6 +65,7 @@ These skills help you understand customers, examine product and market evidence,
 | `affinity-mapping` | Turns interview transcripts into evidenced themes, opportunities and an interactive evidence map. |
 | `desk-research` | Answers a research question using current sources, counterevidence and a separate evidence register. |
 | `interview-plan` | Creates research questions, a screener, an interview guide and a note-taking format. |
+| `interview-simulator` | Lets you practice customer interviews with a fictional persona, then evaluates your questions, technique and mistakes. |
 | `data-analysis` | Guides analysis from a business question through data checks, exploration and recommendations. |
 
 #### Supersprint: from signals to a decision
@@ -142,6 +143,7 @@ Invoke a skill explicitly, for example:
 /product-discovery:affinity-mapping
 /product-discovery:desk-research
 /product-discovery:interview-plan
+/product-discovery:interview-simulator
 /product-discovery:data-analysis
 /product-discovery:super-landing-page
 ```
@@ -155,7 +157,7 @@ codex plugin marketplace add superhero-tech/superhero-skills
 codex plugin add product-discovery@superhero-skills
 ```
 
-Start a new Codex session after installation. Version `1.7.0` adds `supersentence` for clarifying business ideas through an interview and market research; check that your installed plugin has updated to this version or later to use it. You can also open `/plugins` to browse the `Superhero Skills` marketplace.
+Start a new Codex session after installation. Version `1.8.0` adds `interview-simulator` for practicing customer interviews with a fictional persona and receiving feedback; check that your installed plugin has updated to this version or later to use it. You can also open `/plugins` to browse the `Superhero Skills` marketplace.
 
 Invoke a skill explicitly, for example:
 
@@ -167,6 +169,7 @@ $product-discovery:customer-research
 $product-discovery:affinity-mapping
 $product-discovery:desk-research
 $product-discovery:interview-plan
+$product-discovery:interview-simulator
 $product-discovery:data-analysis
 $product-discovery:super-landing-page
 ```
